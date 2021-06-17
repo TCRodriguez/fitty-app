@@ -14,25 +14,55 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 import ClientButton from "../components/clientButton.vue";
+
 export default {
     components: { ClientButton },
     data() {
         return {
-            clients: [
-                { id: 1, text: "Client A" },
-                { id: 2, text: "Client B" },
-                { id: 3, text: "Client C" }, 
-            ]
+            results: [],
         }
     },
+
+    computed: {
+        clients() {
+            return this.results.map(client => {
+                    return {
+                        id: client.id,
+                        text: client.first_name
+                    }
+                });
+        }
+    },
+
     // Declare `navigation` as a prop
     props: {
         navigation: {
             type: Object
         }
     },
+
+    created() {
+        this.getClients();
+    },
+
     methods: {
+        getClients() {
+            axios.get('https://59f98774b7f7.ngrok.io/api/clients', {
+                headers: {
+                    Authorization: 'Bearer 1|QnAnLNwjSzsxYjW1UPcg2cwh4WobtjLVSzYUMvnQ'
+                }
+            })
+            .then(response => {
+                this.results = response.data.data;
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        },
+
         goToClientWorkoutsListScreen() {
             this.navigation.navigate("ClientWorkouts", {
                 client: this.clients[0]
