@@ -1,28 +1,41 @@
 
 <template>
-    <view class="container">
-        <text>This is the Client index page.</text>
-        <text class="clientButton" 
-            v-for="client in clients" 
-            :key="client.text" 
-            :client="client" 
-            @press="goToClientWorkoutsListScreen"
-        >{{ client.text }}</text>
-        <button title="Go to details screen" @press="goToDetailsScreen"></button>
-        <button title="Go to home screen" @press="goToHomeScreen"></button>
-    </view>
+    <scroll-view :content-container-style="{contentContainer: {
+        paddingVertical: 20
+    }}">
+        <!-- Content goes here -->
+        <view class="container">
+            <text>This is the Client index page.</text>
+            <text
+                class="createClientButton"
+                @press="goToCreateClientScreen()"
+            
+            
+            >Add client</text>
+            <text class="clientButton" 
+                v-for="client in clients" 
+                :key="client.id" 
+                :client="client"
+                @press="goToClientWorkoutsListScreen(client.id)"
+            >{{ client.text }}</text>
+            <button title="Go to details screen" @press="goToDetailsScreen"></button>
+            <button title="Go to home screen" @press="goToHomeScreen"></button>
+        </view>
+    </scroll-view>
 </template>
 
 <script>
 import axios from 'axios';
+import fittyApiClient from '../axios-http.js';
 
-import ClientButton from "../components/clientButton.vue";
+// import ClientButton from "../components/clientButton.vue";
 
 export default {
-    components: { ClientButton },
+    // components: { ClientButton },
     data() {
         return {
             results: [],
+            clientId: null,
         }
     },
 
@@ -33,7 +46,7 @@ export default {
                         id: client.id,
                         text: client.first_name
                     }
-                });
+            });
         }
     },
 
@@ -41,18 +54,35 @@ export default {
     props: {
         navigation: {
             type: Object
+        },
+        client: {
+            type: Object
         }
     },
 
     created() {
-        this.getClients();
+        // this.getClients();
+        fittyApiClient.get('clients')
+            .then(response => {
+                console.log("it worked!")
+
+                this.results = response.data.data;
+                // console.log(this.results)
+            })
+            .catch(error => {
+                console.log("it didn't work!")
+                console.log(error)
+            })
     },
 
     methods: {
+        goToCreateClientScreen() {
+            this.navigation.navigate("CreateClient")
+        },
         getClients() {
-            axios.get('https://59f98774b7f7.ngrok.io/api/clients', {
+            axios.get('https://44041ed1744c.ngrok.io/api/clients', {
                 headers: {
-                    Authorization: 'Bearer 1|QnAnLNwjSzsxYjW1UPcg2cwh4WobtjLVSzYUMvnQ'
+                    Authorization: 'Bearer 50|fVKzbqOYSlhPzVQsHDw1xtlHfGkBqDSUB6mAVgpD'
                 }
             })
             .then(response => {
@@ -63,10 +93,17 @@ export default {
             })
         },
 
-        goToClientWorkoutsListScreen() {
+        goToClientWorkoutsListScreen(clientId) {
+            // console.log('test');
+            this.clientId = clientId;
+            console.log(this.clientId + "!");
+            console.log('Clicent Id: ', this.clientId);
             this.navigation.navigate("ClientWorkouts", {
-                client: this.clients[0]
+                // clientId: this.client.id,
+                // client: clientName,
+                clientId: this.clientId,
             })
+
         },
         goToDetailsScreen() {
             this.navigation.navigate("Details");
@@ -96,10 +133,23 @@ export default {
         /* justify-content: center; */
         /* color: yellow; */
         font-size: 50;
-        width: 50%;
+        width: 90%;
         margin-top: 5;
         margin-bottom: 5;
         /* border: 2px solid black; */
+        border-color: black;
+        border-width: 3;
+        border-radius: 5;
+    
+    }
+
+    .createClientButton {
+        text-align: center;
+        background-color: green;
+        font-size: 50;
+        width: 90%;
+        margin-top: 5;
+        margin-bottom: 5;
         border-color: black;
         border-width: 3;
         border-radius: 5;

@@ -7,6 +7,7 @@
         <!-- Temp button while authentication is yet to be in place -->
         <text class="button" @press="goToLoginScreen">Login</text>
         <button title="Go to details screen" @press="goToDetailsScreen"></button>
+        <button title="Go to client workout screen" @press="goToClientWorkoutScreen"></button>
     </view>
 </template>
 
@@ -37,6 +38,9 @@ export default {
         },
         goToDetailsScreen() {
             this.navigation.navigate("Details");
+        },
+        goToClientWorkoutScreen() {
+            this.navigation.navigate("ClientWorkout")
         }
     }
 }
