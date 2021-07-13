@@ -12,7 +12,7 @@
 export default {
     data() {
         return {
-
+            
         }
     },
     // Declare `navigation` as a prop

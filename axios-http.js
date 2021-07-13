@@ -18,8 +18,8 @@ import axios from 'axios'
 //     }
 // };
 export default axios.create({
-    baseURL: 'https://a61358cccea8.ngrok.io/api/',
+    baseURL: 'https://022b4dca51e3.ngrok.io/api/',
     headers: {
-        Authorization: 'Bearer 50|fVKzbqOYSlhPzVQsHDw1xtlHfGkBqDSUB6mAVgpD'
+        Authorization: 'Bearer 51|pauKktIO3qZOwFC0cVWSuxmownzHLRGuCYwi2AIa'
     }
 });
