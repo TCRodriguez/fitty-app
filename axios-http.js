@@ -18,7 +18,7 @@ import axios from 'axios'
 //     }
 // };
 export default axios.create({
-    baseURL: 'https://022b4dca51e3.ngrok.io/api/',
+    baseURL: 'https://233a477fc51c.ngrok.io/api/',
     headers: {
         Authorization: 'Bearer 51|pauKktIO3qZOwFC0cVWSuxmownzHLRGuCYwi2AIa'
     }

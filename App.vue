@@ -36,7 +36,7 @@
       Details: DetailsScreen,
     },
     {
-      initialRouteName: 'Home',
+      initialRouteName: 'Login',
     }
   );
 
