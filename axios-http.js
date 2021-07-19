@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import store from "./store/store.js";
 
 // const fittyApiClient = axios.create({
 //     baseURL: 'https://44041ed1744c.ngrok.io',
@@ -17,9 +17,21 @@ import axios from 'axios'
 
 //     }
 // };
-export default axios.create({
-    baseURL: 'https://233a477fc51c.ngrok.io/api/',
+
+const config = {
     headers: {
-        Authorization: 'Bearer 51|pauKktIO3qZOwFC0cVWSuxmownzHLRGuCYwi2AIa'
+        
     }
+}
+
+
+
+
+
+
+
+console.log("Token: " + store.state.token)
+export default axios.create({
+    baseURL: 'https://1d9271741ca9.ngrok.io/api/',
+
 });

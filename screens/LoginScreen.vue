@@ -3,6 +3,7 @@
     <view class="container">
         <text class="fitty-title">fitty</text>
         <text>This is the Login Screen.</text>
+        <text>{{message}}</text>
         <text-input class="login-field" placeholder="email" v-model="email"/>
         <text>{{email}}</text>
         <text-input class="login-field" placeholder="password" v-model="password"/>
@@ -12,15 +13,15 @@
 </template>
 
 <script>
-
+import store from "../store/store.js";
 import fittyApiClient from '../axios-http';
+
 
 export default {
     data() {
         return {
             email: '',
             password: '',
-            token: null,
         }
     },
     // Declare `navigation` as a prop
@@ -28,6 +29,14 @@ export default {
         navigation: {
             type: Object
         }
+    },
+    computed: {
+        message() {
+            return store.state.message
+        },
+        // token() {
+        //     return store.state.token
+        // }
     },
     methods: {
         login() {
@@ -38,17 +47,21 @@ export default {
             .then(response => {
                 console.log("Login route hit");
                 // console.log(response.data.data.token)
-                this.token = `Bearer ${response.data.data.token}`
-                console.log(this.token)
+                // this.token = `Bearer ${response.data.data.token}`
+                store.dispatch('updateToken', `Bearer ${response.data.data.token}`)
+                // store.state.token = `Bearer ${response.data.data.token}`
+                // console.log(this.token)
+                console.log(store.state.token);
+                this.navigation.navigate('Clients')
                 // Authorization: 'Bearer 51|pauKktIO3qZOwFC0cVWSuxmownzHLRGuCYwi2AIa'
             })
             .catch(error => {
                 console.log(error.response)
                 console.log("There was a problem logging in.")
             })
+            
 
 
-            // this.navigation.navigate('Clients')
         },
         goToClientWorkoutsListScreen() {
             this.navigation.navigate("ClientWorkouts", {

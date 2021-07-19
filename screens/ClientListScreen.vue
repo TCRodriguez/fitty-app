@@ -6,6 +6,7 @@
         <!-- Content goes here -->
         <view class="container">
             <text>This is the Client index page.</text>
+
             <text
                 class="createClientButton"
                 @press="goToCreateClientScreen()"
@@ -25,8 +26,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import fittyApiClient from '../axios-http.js';
+import store from "../store/store.js"
 
 // import ClientButton from "../components/clientButton.vue";
 
@@ -60,9 +62,13 @@ export default {
         }
     },
 
-    created() {
+    mounted() {
         // this.getClients();
-        fittyApiClient.get('clients')
+        fittyApiClient.get('clients', {
+            headers: {
+                Authorization: store.state.token
+            }
+        })
             .then(response => {
                 console.log("it worked!")
 

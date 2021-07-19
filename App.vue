@@ -14,15 +14,32 @@
     createStackNavigator,
   } from "vue-native-router";
 
+  // import Vue from 'vue-native-core';
+  // import Vuex from 'vuex';
+  // Vue.use(Vuex);
+
   // console.disableYellowBox = true;
   import LoginScreen from "./screens/LoginScreen.vue";
   import HomeScreen from "./screens/HomeScreen.vue";
   import ClientListScreen from "./screens/ClientListScreen.vue";
   import CreateClientScreen from "./screens/CreateClientScreen.vue";
   import ExerciseListScreen from "./screens/ExerciseListScreen.vue";
+  import CreateExerciseScreen from "./screens/CreateExerciseScreen.vue";
   import ClientWorkoutsListScreen from "./screens/ClientWorkoutsListScreen.vue";
   import ClientWorkoutScreen from "./screens/ClientWorkoutScreen.vue";
   import DetailsScreen from "./screens/DetailsScreen.vue";
+
+
+// const store = new Vuex.Store({
+//   state: {
+//     message: "Can you see me?"
+//   },
+//   mutations: {
+    
+//   }
+// })
+
+
 
   const StackNavigator = createStackNavigator(
     {
@@ -46,7 +63,8 @@
     components: { AppNavigator },
     data() {
       return {
-        message: "Can you see me?"
+        store: store
+
       }
     }
   }
