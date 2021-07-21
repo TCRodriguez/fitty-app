@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import store from '../store/store.js'
 import fittyApiClient from '../axios-http';
 
 export default {
@@ -40,10 +41,10 @@ export default {
                 starting_weight: this.startingWeight,
                 email: this.email,
                 phone_number: this.phoneNumber
-                // first_name: "Dialo",
-                // last_name: "Wells",
-                // startingWeight: 250,
-                // email: 'dialo@wells.com',
+                },
+                { headers: {
+                    'Authorization': store.state.token
+                },
             })
             .then(response => {
                 console.log("Client saved.")

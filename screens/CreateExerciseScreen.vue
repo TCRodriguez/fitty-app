@@ -1,10 +1,17 @@
 <template>
     <view>
-        <text-input placeholder="Exercise Name..."></text-input>
+        <text>This is the Create Exercise Screen</text>
+        <text-input class="input-field" placeholder="Exercise Name..." v-model="exerciseName"></text-input>
+        <text>{{exerciseName}}</text>
+        <touchable-opacity>
+            <text class="save-button" @press="createExercise()">Save</text>
+        </touchable-opacity>
     </view>
 </template>
 
 <script>
+import store from "../store/store.js"
+import fittyApiClient from '../axios-http'
 export default {
     props: {
         navigation: {
@@ -13,7 +20,25 @@ export default {
     },
     data() {
         return {
-            
+            exerciseName: ''
+        }
+    },
+    methods: {
+        createExercise() {
+            fittyApiClient.post('exercises', {
+                exercise_name: this.exerciseName
+                },
+                { headers: {
+                    'Authorization': store.state.token
+                },
+            })
+            .then(response => {
+                console.log(response)
+                this.navigation.navigate('Exercises')
+            })
+            .catch(error => {
+                console.log(error.response)
+            })
         }
     }
 }

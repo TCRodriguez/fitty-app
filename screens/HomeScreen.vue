@@ -5,7 +5,7 @@
         <text class="button" @press="goToExerciseListScreen">Exercises</text>
         <text class="inactive">Settings</text>
         <!-- Temp button while authentication is yet to be in place -->
-        <text class="button" @press="goToLoginScreen">Login</text>
+        <!-- <text class="button" @press="goToLoginScreen">Login</text> -->
         <button title="Go to details screen" @press="goToDetailsScreen"></button>
         <button title="Go to client workout screen" @press="goToClientWorkoutScreen"></button>
     </view>
@@ -26,6 +26,9 @@ export default {
             type: Object
         }
     },
+    created() {
+
+    },
     methods: {
         goToLoginScreen() {
             this.navigation.navigate("Login")
@@ -34,7 +37,9 @@ export default {
             this.navigation.navigate("Clients")
         },
         goToExerciseListScreen() {
-            this.navigation.navigate("Exercises")
+            this.navigation.navigate("Exercises", {
+                // trainerId: 
+            })
         },
         goToDetailsScreen() {
             this.navigation.navigate("Details");

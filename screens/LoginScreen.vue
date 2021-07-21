@@ -22,6 +22,7 @@ export default {
         return {
             email: '',
             password: '',
+            trainerId: null,
         }
     },
     // Declare `navigation` as a prop
@@ -46,13 +47,14 @@ export default {
             })
             .then(response => {
                 console.log("Login route hit");
+                console.log(response.data.data)
                 // console.log(response.data.data.token)
                 // this.token = `Bearer ${response.data.data.token}`
                 store.dispatch('updateToken', `Bearer ${response.data.data.token}`)
                 // store.state.token = `Bearer ${response.data.data.token}`
                 // console.log(this.token)
                 console.log(store.state.token);
-                this.navigation.navigate('Clients')
+                this.navigation.navigate('Home')
                 // Authorization: 'Bearer 51|pauKktIO3qZOwFC0cVWSuxmownzHLRGuCYwi2AIa'
             })
             .catch(error => {

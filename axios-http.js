@@ -18,11 +18,11 @@ import store from "./store/store.js";
 //     }
 // };
 
-const config = {
-    headers: {
+// const config = {
+//     headers: {
         
-    }
-}
+//     }
+// }
 
 
 
@@ -32,6 +32,6 @@ const config = {
 
 console.log("Token: " + store.state.token)
 export default axios.create({
-    baseURL: 'https://1d9271741ca9.ngrok.io/api/',
+    baseURL: 'https://46fa6041ae02.ngrok.io/api/',
 
 });

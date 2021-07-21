@@ -48,6 +48,7 @@
       Clients: ClientListScreen,
       CreateClient: CreateClientScreen,
       Exercises: ExerciseListScreen,
+      CreateExercise: CreateExerciseScreen,
       ClientWorkouts: ClientWorkoutsListScreen,
       ClientWorkout: ClientWorkoutScreen,
       Details: DetailsScreen,
@@ -66,7 +67,7 @@
         store: store
 
       }
-    }
+    },
   }
 </script>
 
