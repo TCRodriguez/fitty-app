@@ -5,6 +5,10 @@
       <view class="container">
         <text>This is the Workouts List screen.</text>
         <text>client id is: {{ navigation.getParam('clientId')}}</text>
+          <text
+            class="createClientWorkoutButton"
+            @press="goToCreateClientWorkoutScreen()"
+          >Add Workout</text>
         <text
           class="clientWorkoutButton"
           v-for="clientWorkout in clientWorkouts"
@@ -21,7 +25,8 @@
 
 <script>
 
-import axios from 'axios';
+
+import store from '../store/store'
 import fittyApiClient from '../axios-http.js';
 
 
@@ -34,6 +39,7 @@ export default {
     },
     data() {
       return {
+        // workoutId: 
         clientWorkouts: [],
         // ! Get's filled in when a Client is selected (button with the Client name is pressed)
         clientWorkoutExerciseLogs: null,
@@ -53,7 +59,11 @@ export default {
     },
     created() {
       // console.log(this.navigation.getParam('clientId'))
-      fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts`) 
+      fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts`, {
+        headers: {
+          'Authorization': store.state.token
+        }
+      }) 
       .then(response => {
         // console.log("We've got the workouts!")
 
@@ -70,6 +80,12 @@ export default {
       })
     },
     methods: {
+      goToCreateClientWorkoutScreen() {
+        console.log(this.navigation.getParam('clientId'))
+      this.navigation.navigate('CreateClientWorkout', {
+          clientId: this.navigation.getParam('clientId')
+      })
+        },
         goToClientWorkoutScreen(clientWorkoutId) {
           this.clientWorkoutExerciseLogs = [];
           // // console.log(clientWorkoutId);
@@ -96,7 +112,9 @@ export default {
           // }
           // console.log(this.clientWorkoutExerciseLogs);
           this.navigation.navigate('ClientWorkout', {
-            clientWorkoutExerciseLogs: this.clientWorkoutExerciseLogs
+            // clientWorkoutExerciseLogs: this.clientWorkoutExerciseLogs
+            clientId: this.navigation.getParam('clientId'),
+            workout_id: clientWorkoutId
           });
           // this.navigation.navigate('ClientWorkout');
         },
@@ -118,6 +136,19 @@ export default {
         justify-content: center;
         /* height: 25%; */
     }
+
+    .createClientWorkoutButton {
+        text-align: center;
+        background-color: green;
+        font-size: 50;
+        width: 90%;
+        margin-top: 5;
+        margin-bottom: 5;
+        border-color: black;
+        border-width: 3;
+        border-radius: 5;
+    }
+
     .clientWorkoutButton {
         /* background-color: green; */
         text-align: center;

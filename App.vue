@@ -27,6 +27,7 @@
   import CreateExerciseScreen from "./screens/CreateExerciseScreen.vue";
   import ClientWorkoutsListScreen from "./screens/ClientWorkoutsListScreen.vue";
   import ClientWorkoutScreen from "./screens/ClientWorkoutScreen.vue";
+  import CreateClientWorkoutScreen from "./screens/CreateClientWorkoutScreen.vue";
   import DetailsScreen from "./screens/DetailsScreen.vue";
 
 
@@ -51,6 +52,7 @@
       CreateExercise: CreateExerciseScreen,
       ClientWorkouts: ClientWorkoutsListScreen,
       ClientWorkout: ClientWorkoutScreen,
+      CreateClientWorkout: CreateClientWorkoutScreen,
       Details: DetailsScreen,
     },
     {
