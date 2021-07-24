@@ -32,6 +32,6 @@ import store from "./store/store.js";
 
 console.log("Token: " + store.state.token)
 export default axios.create({
-    baseURL: 'https://e90295010f29.ngrok.io/api/',
+    baseURL: 'https://e21c4bce8e25.ngrok.io/api/',
 
 });

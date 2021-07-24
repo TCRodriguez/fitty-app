@@ -3,7 +3,6 @@
         paddingVertical: 20
     }}">
       <view class="container">
-        <text>This is the Workouts List screen.</text>
         <text>client id is: {{ navigation.getParam('clientId')}}</text>
           <text
             class="createClientWorkoutButton"
@@ -39,7 +38,6 @@ export default {
     },
     data() {
       return {
-        // workoutId: 
         clientWorkouts: [],
         // ! Get's filled in when a Client is selected (button with the Client name is pressed)
         clientWorkoutExerciseLogs: null,
@@ -66,9 +64,8 @@ export default {
       }) 
       .then(response => {
         // console.log("We've got the workouts!")
-
+        // console.log("This is the workoutId: " + this.workoutId);
         this.clientWorkouts = response.data.data;
-
         // this.clientWorkoutExerciseLogs = this.clientWorkouts.logs;
         // console.log(this.clientWorkouts);
         // console.log(this.clientWorkoutExerciseLogs);

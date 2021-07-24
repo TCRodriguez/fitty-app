@@ -4,6 +4,7 @@
     }}">
         <view class="container">
             <!-- <h1>test</h1> -->
+            <text>The workoutId is: {{workoutId}}</text>
             <text>This is the Client Workout Screen, and these are the logs</text>
 
             <text
@@ -18,6 +19,9 @@
             weight: {{clientWorkoutExerciseLog.weight}}
             
             </text>
+            <touchable-opacity>
+                <text class="createClientWorkoutExerciseLogButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
+            </touchable-opacity>
         </view>
     </scroll-view>
 </template>
@@ -34,6 +38,7 @@ export default {
     },
     data() {
         return {
+            workoutId: null,
             clientWorkoutExerciseLogs: []
         }
     },
@@ -57,6 +62,7 @@ export default {
         // ? Was going to do an Axios call here, but we already have the logs...do they make it here?
         // console.log("The client ID is: " + this.navigation.getParam('clientId'))
         // console.log("The workout ID is: " + this.navigation.getParam('workout_id'))
+        this.workoutId = this.navigation.getParam('workout_id')
         fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts/${this.navigation.getParam('workout_id')}`, {
             headers: {
                 'Authorization': store.state.token
@@ -65,6 +71,7 @@ export default {
         .then(response => {
             console.log(response.data.data.logs)
             this.clientWorkoutExerciseLogs = response.data.data.logs
+            // this.workoutId = response.data.data.id
         })
         .catch(error => {
             console.log(error.response)
@@ -75,7 +82,12 @@ export default {
 
     },
     methods: {
-
+        goToCreateClientWorkoutExerciseLogScreen() {
+            console.log("This is the workoutId: " + this.workoutId)
+            this.navigation.navigate('CreateClientWorkoutExerciseLog', {
+                workoutId: this.workoutId,
+            })
+        }
     }
 }
 </script>
@@ -103,7 +115,19 @@ export default {
         border-color: black;
         border-width: 3;
         border-radius: 5;
-
-
     }
+
+    .createClientWorkoutExerciseLogButton {
+        text-align: center;
+        background-color: green;
+        font-size: 50;
+        width: 90%;
+        margin-top: 5;
+        margin-bottom: 5;
+        border-color: black;
+        border-width: 3;
+        border-radius: 5;
+    }
+
+
 </style>
