@@ -14,7 +14,8 @@
             <text class="button" 
             v-for="exercise in exercises" 
             :key="exercise.id" 
-            :exercise="exercise" 
+            :exercise="exercise"
+            @press="goToEditExerciseScreen(exercise.exercise_id, exercise.exercise_name)"
             >{{ exercise.exercise_name }}</text>
         <!-- <button title="Go to details screen" @press="goToDetailsScreen"></button>
         <button title="Go to home screen" @press="goToHomeScreen"></button> -->
@@ -47,7 +48,8 @@ export default {
         exercises() {
             return this.results.map(exercise => {
                 return {
-                    exercise_name: exercise.exercise_name
+                    exercise_name: exercise.exercise_name,
+                    exercise_id: exercise.id
                 }
             });
         }
@@ -69,6 +71,13 @@ export default {
     methods: {
         goToCreateExerciseScreen() {
             this.navigation.navigate("CreateExercise")
+        },
+        goToEditExerciseScreen(exerciseId, exerciseName) {
+            console.log("This is the exercise id: " + exerciseId)
+            this.navigation.navigate("EditExercise", {
+                exerciseId: exerciseId,
+                exerciseName: exerciseName
+            })
         }
         // goToClientWorkoutsListScreen() {
         //     this.navigation.navigate("ClientWorkouts", {

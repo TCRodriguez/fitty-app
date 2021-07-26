@@ -4,16 +4,20 @@
     }}">
       <view class="container">
         <text>client id is: {{ navigation.getParam('clientId')}}</text>
-          <text
-            class="createClientWorkoutButton"
-            @press="goToCreateClientWorkoutScreen()"
-          >Add Workout</text>
+        <text
+          class="optionsButton"
+          @press="goToClientEditScreen()"
+        >Edit Client</text>
+        <text
+          class="optionsButton"
+          @press="goToCreateClientWorkoutScreen()"
+        >Add Workout</text>
         <text
           class="clientWorkoutButton"
           v-for="clientWorkout in clientWorkouts"
           :key="clientWorkout.id"
           :clientWorkout="clientWorkout"
-          @press="goToClientWorkoutScreen(clientWorkout.id)"
+          @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)"
         >{{clientWorkout.date}}</text>
         <button title="Go to Client List screen" @press="goToClientListScreen"></button>
         <button title="Go to Home screen" @press="goToHomeScreen"></button>
@@ -50,6 +54,7 @@ export default {
           return {
               id: clientWorkout.id, 
               date: clientWorkout.date,
+              name: clientWorkout.name,
               logs: clientWorkout.logs
           }
         });
@@ -77,13 +82,18 @@ export default {
       })
     },
     methods: {
+      goToClientEditScreen() {
+        this.navigation.navigate('EditClient', {
+          clientId: this.navigation.getParam('clientId')
+        })
+      },
       goToCreateClientWorkoutScreen() {
         console.log(this.navigation.getParam('clientId'))
       this.navigation.navigate('CreateClientWorkout', {
           clientId: this.navigation.getParam('clientId')
       })
         },
-        goToClientWorkoutScreen(clientWorkoutId) {
+        goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName) {
           this.clientWorkoutExerciseLogs = [];
           // // console.log(clientWorkoutId);
           // ! Review this/make note of how this is more efficient
@@ -111,7 +121,8 @@ export default {
           this.navigation.navigate('ClientWorkout', {
             // clientWorkoutExerciseLogs: this.clientWorkoutExerciseLogs
             clientId: this.navigation.getParam('clientId'),
-            workout_id: clientWorkoutId
+            workoutId: clientWorkoutId,
+            workoutName: clientWorkoutName
           });
           // this.navigation.navigate('ClientWorkout');
         },
@@ -134,7 +145,7 @@ export default {
         /* height: 25%; */
     }
 
-    .createClientWorkoutButton {
+    .optionsButton {
         text-align: center;
         background-color: green;
         font-size: 50;

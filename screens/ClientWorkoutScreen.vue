@@ -6,21 +6,28 @@
             <!-- <h1>test</h1> -->
             <text>The workoutId is: {{workoutId}}</text>
             <text>This is the Client Workout Screen, and these are the logs</text>
+            <text
+                class="optionsButton"
+                @press="goToEditClientWorkoutScreen()"
+            
+            
+            >Edit Workout Date</text>
 
             <text
                 class="clientWorkoutExerciseLog"
                 v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
                 :key="clientWorkoutExerciseLog.id"
                 :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
+                @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
             >
-            {{clientWorkoutExerciseLog.exercise_name}}
-            sets: {{clientWorkoutExerciseLog.sets}}
-            reps: {{clientWorkoutExerciseLog.reps}}
-            weight: {{clientWorkoutExerciseLog.weight}}
+                {{clientWorkoutExerciseLog.exercise_name}}
+                sets: {{clientWorkoutExerciseLog.sets}}
+                reps: {{clientWorkoutExerciseLog.reps}}
+                weight: {{clientWorkoutExerciseLog.weight}}
             
             </text>
             <touchable-opacity>
-                <text class="createClientWorkoutExerciseLogButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
+                <text class="optionsButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
             </touchable-opacity>
         </view>
     </scroll-view>
@@ -38,7 +45,9 @@ export default {
     },
     data() {
         return {
+            clientId: null,
             workoutId: null,
+            clientWorkoutName: null,
             clientWorkoutExerciseLogs: []
         }
     },
@@ -62,8 +71,10 @@ export default {
         // ? Was going to do an Axios call here, but we already have the logs...do they make it here?
         // console.log("The client ID is: " + this.navigation.getParam('clientId'))
         // console.log("The workout ID is: " + this.navigation.getParam('workout_id'))
-        this.workoutId = this.navigation.getParam('workout_id')
-        fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts/${this.navigation.getParam('workout_id')}`, {
+        this.workoutId = this.navigation.getParam('workoutId')
+        this.clientId = this.navigation.getParam('clientId')
+        this.clientWorkoutName = this.navigation.getParam('clientWorkoutName')
+        fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts/${this.navigation.getParam('workoutId')}`, {
             headers: {
                 'Authorization': store.state.token
             }
@@ -82,6 +93,24 @@ export default {
 
     },
     methods: {
+        goToEditClientWorkoutScreen() {
+            this.navigation.navigate('EditClientWorkout', {
+                clientId: this.clientId,
+                workoutId: this.workoutId,
+                clientWorkoutName: this.clientWorkoutName
+
+            })
+        },
+        goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLogId) {
+            console.log("This is the client id: " + this.clientId)
+            console.log("This is the workout id: " + this.workoutId)
+            console.log("This is the log id: " + clientWorkoutExerciseLogId)
+            this.navigation.navigate('EditClientWorkoutExerciseLog', {
+                clientId: this.clientId,
+                workoutId: this.workoutId,
+                clientWorkoutExerciseLogId: clientWorkoutExerciseLogId
+            })
+        },
         goToCreateClientWorkoutExerciseLogScreen() {
             console.log("This is the workoutId: " + this.workoutId)
             this.navigation.navigate('CreateClientWorkoutExerciseLog', {
@@ -104,7 +133,7 @@ export default {
 
     .clientWorkoutExerciseLog {
         /* background-color: green; */
-        text-align: center;
+        text-align: left;
         /* justify-content: center; */
         /* color: yellow; */
         font-size: 50;
@@ -117,7 +146,7 @@ export default {
         border-radius: 5;
     }
 
-    .createClientWorkoutExerciseLogButton {
+    .optionsButton {
         text-align: center;
         background-color: green;
         font-size: 50;

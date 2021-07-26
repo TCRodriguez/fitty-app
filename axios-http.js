@@ -25,13 +25,8 @@ import store from "./store/store.js";
 // }
 
 
-
-
-
-
-
 console.log("Token: " + store.state.token)
 export default axios.create({
-    baseURL: 'https://e21c4bce8e25.ngrok.io/api/',
+    baseURL: 'https://0d659e8dfc37.ngrok.io/api/',
 
 });
