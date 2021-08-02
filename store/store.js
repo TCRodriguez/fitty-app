@@ -15,7 +15,6 @@ const store = new Vuex.Store({
     actions: {
         updateToken(context, token) {
             context.commit('updateToken', token)
-            
         }
     }
 });

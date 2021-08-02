@@ -3,14 +3,15 @@
         paddingVertical: 20
     }}">
         <view class="container">
-            <!-- <h1>test</h1> -->
             <text>The workoutId is: {{workoutId}}</text>
             <text>This is the Client Workout Screen, and these are the logs</text>
             <text
                 class="optionsButton"
+                @press="goToClientWorkoutsListScreen()"
+            >Go back to Workout screen</text>
+            <text
+                class="optionsButton"
                 @press="goToEditClientWorkoutScreen()"
-            
-            
             >Edit Workout Date</text>
 
             <text
@@ -24,11 +25,12 @@
                 sets: {{clientWorkoutExerciseLog.sets}}
                 reps: {{clientWorkoutExerciseLog.reps}}
                 weight: {{clientWorkoutExerciseLog.weight}}
-            
             </text>
+
             <touchable-opacity>
                 <text class="optionsButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
             </touchable-opacity>
+            <button title="Go to Home screen" @press="goToHomeScreen"></button>
         </view>
     </scroll-view>
 </template>
@@ -52,7 +54,6 @@ export default {
         }
     },
     computed: {
-        // ? Hm, this currently doesn't get called...
         clientWorkoutExerciseLogs() {
             return this.clientWorkoutExerciseLogs.map(clientWorkoutExerciseLog => {
                 return {
@@ -68,12 +69,10 @@ export default {
         }
     },
     created() {
-        // ? Was going to do an Axios call here, but we already have the logs...do they make it here?
-        // console.log("The client ID is: " + this.navigation.getParam('clientId'))
-        // console.log("The workout ID is: " + this.navigation.getParam('workout_id'))
         this.workoutId = this.navigation.getParam('workoutId')
         this.clientId = this.navigation.getParam('clientId')
         this.clientWorkoutName = this.navigation.getParam('clientWorkoutName')
+
         fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts/${this.navigation.getParam('workoutId')}`, {
             headers: {
                 'Authorization': store.state.token
@@ -82,15 +81,13 @@ export default {
         .then(response => {
             console.log(response.data.data.logs)
             this.clientWorkoutExerciseLogs = response.data.data.logs
-            // this.workoutId = response.data.data.id
         })
         .catch(error => {
             console.log(error.response)
         })
-        // this.clientWorkoutExerciseLogs = this.navigation.getParam('clientWorkoutExerciseLogs')
+
         console.log("We've got the logs!")
         console.log(this.clientWorkoutExerciseLogs)
-
     },
     methods: {
         goToEditClientWorkoutScreen() {
@@ -98,7 +95,6 @@ export default {
                 clientId: this.clientId,
                 workoutId: this.workoutId,
                 clientWorkoutName: this.clientWorkoutName
-
             })
         },
         goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLogId) {
@@ -114,33 +110,35 @@ export default {
         goToCreateClientWorkoutExerciseLogScreen() {
             console.log("This is the workoutId: " + this.workoutId)
             this.navigation.navigate('CreateClientWorkoutExerciseLog', {
+                clientId: this.clientId,
                 workoutId: this.workoutId,
             })
+        },
+        goToClientWorkoutsListScreen() {
+            this.navigation.navigate('ClientWorkouts', {
+                clientId: this.clientId
+            })
+        },
+        goToHomeScreen() {
+            this.navigation.navigate("Home")
         }
     }
 }
 </script>
 <style scoped>
-
     .container {
-        /* flex: 4; */
         display: flex;
         align-items: center;
         justify-content: center;
-        /* height: 25%; */
     }
 
 
     .clientWorkoutExerciseLog {
-        /* background-color: green; */
         text-align: left;
-        /* justify-content: center; */
-        /* color: yellow; */
         font-size: 50;
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        /* border: 2px solid black; */
         border-color: black;
         border-width: 3;
         border-radius: 5;
@@ -157,6 +155,4 @@ export default {
         border-width: 3;
         border-radius: 5;
     }
-
-
 </style>

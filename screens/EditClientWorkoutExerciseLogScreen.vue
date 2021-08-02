@@ -2,6 +2,7 @@
     <view class="container">
         <text>This is the Edit Exercise Log Screen</text>
         <text>This is the workoutId: {{navigation.getParam('workoutId')}}</text>
+
         <text-input class="input-field" placeholder="Choose exercise...(ID for now)" v-model="exerciseId"></text-input>
         <text>{{exerciseId}}</text>
         <text-input class="input-field" keyboardType="numeric" placeholder="Sets..." v-model="sets"></text-input>
@@ -97,17 +98,11 @@ export default {
         margin-left: 5;
     }
 
-
     .input-field {
-                /* background-color: green; */
-        /* text-align: center; */
-        /* justify-content: center; */
-        /* color: yellow; */
         font-size: 35;
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        /* border: 2px solid black; */
         border-color: black;
         border-width: 3;
         border-radius: 5;
@@ -124,7 +119,6 @@ export default {
         font-size: 25;
         padding-left: 5;
         padding-right: 5;
-        /* justify-content: end; */
         margin-top: 10;
     }
 </style>

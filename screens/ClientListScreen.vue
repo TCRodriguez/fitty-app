@@ -3,15 +3,12 @@
     <scroll-view :content-container-style="{contentContainer: {
         paddingVertical: 20
     }}">
-        <!-- Content goes here -->
         <view class="container">
             <text>This is the Client index page.</text>
 
             <text
                 class="createClientButton"
                 @press="goToCreateClientScreen()"
-            
-            
             >Add client</text>
             <text class="clientButton" 
                 v-for="client in clients" 
@@ -19,6 +16,7 @@
                 :client="client"
                 @press="goToClientWorkoutsListScreen(client.id)"
             >{{ client.text }}</text>
+
             <button title="Go to details screen" @press="goToDetailsScreen"></button>
             <button title="Go to home screen" @press="goToHomeScreen"></button>
         </view>
@@ -26,14 +24,10 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import fittyApiClient from '../axios-http.js';
 import store from "../store/store.js"
 
-// import ClientButton from "../components/clientButton.vue";
-
 export default {
-    // components: { ClientButton },
     data() {
         return {
             results: [],
@@ -52,7 +46,6 @@ export default {
         }
     },
 
-    // Declare `navigation` as a prop
     props: {
         navigation: {
             type: Object
@@ -62,8 +55,8 @@ export default {
         }
     },
 
-    mounted() {
-        // this.getClients();
+    beforeMount() {
+        // ? Could the code that triggers a refresh go here?
         fittyApiClient.get('clients', {
             headers: {
                 Authorization: store.state.token
@@ -73,7 +66,6 @@ export default {
                 console.log("it worked!")
 
                 this.results = response.data.data;
-                // console.log(this.results)
             })
             .catch(error => {
                 console.log("it didn't work!")
@@ -98,18 +90,13 @@ export default {
                 console.log(error)
             })
         },
-
         goToClientWorkoutsListScreen(clientId) {
-            // console.log('test');
             this.clientId = clientId;
             console.log(this.clientId + "!");
             console.log('Clicent Id: ', this.clientId);
             this.navigation.navigate("ClientWorkouts", {
-                // clientId: this.client.id,
-                // client: clientName,
                 clientId: this.clientId,
             })
-
         },
         goToDetailsScreen() {
             this.navigation.navigate("Details");
@@ -122,31 +109,21 @@ export default {
 </script>
 
 <style scoped>
-/* .container {
-    font-size: 100px;
-} */
-
     .container {
-        /* flex: 4; */
         display: flex;
         align-items: center;
         justify-content: center;
-        /* height: 25%; */
     }
+    
     .clientButton {
-        /* background-color: green; */
         text-align: center;
-        /* justify-content: center; */
-        /* color: yellow; */
         font-size: 50;
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        /* border: 2px solid black; */
         border-color: black;
         border-width: 3;
         border-radius: 5;
-    
     }
 
     .createClientButton {

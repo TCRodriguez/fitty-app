@@ -2,8 +2,10 @@
     <view>
         <text>This is the Edit Workout Screen</text>
         <text>This is the clientId: {{navigation.getParam('clientId')}}</text>
+
         <text-input class="input-field" placeholder="Date (YYYY-MM-DD)..." v-model="name"/>
         <text>{{name}}</text>
+
         <touchable-opacity>
             <text class="save-button" @press="editClientWorkout()">Save changes</text>
         </touchable-opacity>
@@ -13,6 +15,7 @@
 <script>
 import store from "../store/store.js"
 import fittyApiClient from '../axios-http'
+
 export default {
     props: {
         navigation: {
@@ -27,7 +30,6 @@ export default {
         }
     },
     mounted() {
-        // * Do we do another Axios call here to get the info to fill in the fields?
         this.clientId = this.navigation.getParam('clientId')
         this.workoutId = this.navigation.getParam('workoutId')
         this.name = this.navigation.getParam('clientWorkoutName')
@@ -61,17 +63,11 @@ export default {
         margin-left: 5;
     }
 
-
     .input-field {
-                /* background-color: green; */
-        /* text-align: center; */
-        /* justify-content: center; */
-        /* color: yellow; */
         font-size: 35;
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        /* border: 2px solid black; */
         border-color: black;
         border-width: 3;
         border-radius: 5;
@@ -88,7 +84,6 @@ export default {
         font-size: 25;
         padding-left: 5;
         padding-right: 5;
-        /* justify-content: end; */
         margin-top: 10;
     }
 </style>

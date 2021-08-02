@@ -1,8 +1,10 @@
 <template>
     <view>
         <text>This is the Create Exercise Screen</text>
+
         <text-input class="input-field" placeholder="Exercise Name..." v-model="exerciseName"></text-input>
         <text>{{exerciseName}}</text>
+
         <touchable-opacity>
             <text class="save-button" @press="createExercise()">Save</text>
         </touchable-opacity>
@@ -12,6 +14,7 @@
 <script>
 import store from "../store/store.js"
 import fittyApiClient from '../axios-http'
+
 export default {
     props: {
         navigation: {
@@ -48,17 +51,11 @@ export default {
         margin-left: 5;
     }
 
-
     .input-field {
-                /* background-color: green; */
-        /* text-align: center; */
-        /* justify-content: center; */
-        /* color: yellow; */
         font-size: 35;
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        /* border: 2px solid black; */
         border-color: black;
         border-width: 3;
         border-radius: 5;
@@ -75,7 +72,6 @@ export default {
         font-size: 25;
         padding-left: 5;
         padding-right: 5;
-        /* justify-content: end; */
         margin-top: 10;
     }
 </style>

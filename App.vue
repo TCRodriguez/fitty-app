@@ -4,8 +4,6 @@
 
 
 <script>
-  // import fittyApiClient from 'axios-https.js';
-  // console.disableYellowBox = true;
   import { LogBox } from 'react-native';
   LogBox.ignoreAllLogs();
 
@@ -14,11 +12,6 @@
     createStackNavigator,
   } from "vue-native-router";
 
-  // import Vue from 'vue-native-core';
-  // import Vuex from 'vuex';
-  // Vue.use(Vuex);
-
-  // console.disableYellowBox = true;
   import LoginScreen from "./screens/LoginScreen.vue";
   import HomeScreen from "./screens/HomeScreen.vue";
 
@@ -39,18 +32,6 @@
   import EditClientWorkoutExerciseLogScreen from "./screens/EditClientWorkoutExerciseLogScreen.vue";
 
   import DetailsScreen from "./screens/DetailsScreen.vue";
-
-
-// const store = new Vuex.Store({
-//   state: {
-//     message: "Can you see me?"
-//   },
-//   mutations: {
-    
-//   }
-// })
-
-
 
   const StackNavigator = createStackNavigator(
     {
@@ -86,28 +67,22 @@
     components: { AppNavigator },
     data() {
       return {
-        store: store
-
       }
     },
   }
 </script>
 
-
-
-
-
 <style>
-body {
-  overflow-y: scroll;
-}
-.container {
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-}
-.text-color-primary {
-  color: blue;
-}
+  body {
+    overflow-y: scroll;
+  }
+  .container {
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+  .text-color-primary {
+    color: blue;
+  }
 </style>

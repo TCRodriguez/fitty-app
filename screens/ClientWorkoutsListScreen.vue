@@ -4,6 +4,7 @@
     }}">
       <view class="container">
         <text>client id is: {{ navigation.getParam('clientId')}}</text>
+        
         <text
           class="optionsButton"
           @press="goToClientEditScreen()"
@@ -19,22 +20,18 @@
           :clientWorkout="clientWorkout"
           @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)"
         >{{clientWorkout.date}}</text>
+
         <button title="Go to Client List screen" @press="goToClientListScreen"></button>
         <button title="Go to Home screen" @press="goToHomeScreen"></button>
       </view>
     </scroll-view>
-
 </template>
 
 <script>
-
-
 import store from '../store/store'
 import fittyApiClient from '../axios-http.js';
 
-
 export default {
-  // Declare `navigation` as a prop
     props: {
         navigation: {
             type: Object
@@ -43,11 +40,9 @@ export default {
     data() {
       return {
         clientWorkouts: [],
-        // ! Get's filled in when a Client is selected (button with the Client name is pressed)
         clientWorkoutExerciseLogs: null,
       }
     },
-
     computed: {
       clientWorkouts() {
         return this.clientWorkouts.map(clientWorkout => {
@@ -61,20 +56,13 @@ export default {
       }
     },
     created() {
-      // console.log(this.navigation.getParam('clientId'))
       fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts`, {
         headers: {
           'Authorization': store.state.token
         }
       }) 
       .then(response => {
-        // console.log("We've got the workouts!")
-        // console.log("This is the workoutId: " + this.workoutId);
         this.clientWorkouts = response.data.data;
-        // this.clientWorkoutExerciseLogs = this.clientWorkouts.logs;
-        // console.log(this.clientWorkouts);
-        // console.log(this.clientWorkoutExerciseLogs);
-        // console.log(this.clientWorkoutExerciseLogs);
       })
       .catch(error => {
         console.log("we DID NOT get our client workouts")
@@ -95,36 +83,14 @@ export default {
         },
         goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName) {
           this.clientWorkoutExerciseLogs = [];
-          // // console.log(clientWorkoutId);
-          // ! Review this/make note of how this is more efficient
-          // ! How is it accomplishing the same thing as those 'for' loops?
           this.clientWorkoutExerciseLogs = 
             this.clientWorkouts.find(clientWorkout => clientWorkout.id == clientWorkoutId).logs;
-          // for (let i = 0; i < this.clientWorkouts.length; i++) {
-          //   const workout = this.clientWorkouts[i];
-          //   if(workout.id === clientWorkoutId) {
-          //     console.log(this.clientWorkouts[i]);
 
-          //     for (let j = 0; j < workout.logs.length; j++) {
-          //       if(clientWorkoutId === workout.logs[j].workout_id){
-          //         // console.log("This is a log for the workout selected")
-          //         const log = workout.logs[j];
-
-          //         this.clientWorkoutExerciseLogs.push(log)
-          //       }
-          //     }
-          //   }
-
-          
-          // }
-          // console.log(this.clientWorkoutExerciseLogs);
           this.navigation.navigate('ClientWorkout', {
-            // clientWorkoutExerciseLogs: this.clientWorkoutExerciseLogs
             clientId: this.navigation.getParam('clientId'),
             workoutId: clientWorkoutId,
             workoutName: clientWorkoutName
           });
-          // this.navigation.navigate('ClientWorkout');
         },
         goToClientListScreen() {
             this.navigation.navigate("Clients");
@@ -136,13 +102,10 @@ export default {
 }
 </script>
 <style scoped>
-
     .container {
-        /* flex: 4; */
         display: flex;
         align-items: center;
         justify-content: center;
-        /* height: 25%; */
     }
 
     .optionsButton {
@@ -158,15 +121,11 @@ export default {
     }
 
     .clientWorkoutButton {
-        /* background-color: green; */
         text-align: center;
-        /* justify-content: center; */
-        /* color: yellow; */
         font-size: 50;
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        /* border: 2px solid black; */
         border-color: black;
         border-width: 3;
         border-radius: 5;

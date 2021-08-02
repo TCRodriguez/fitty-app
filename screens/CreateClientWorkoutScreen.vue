@@ -2,6 +2,7 @@
     <view>
         <text>This is the Create Workout Screen</text>
         <text>This is the clientId: {{navigation.getParam('clientId')}}</text>
+        
         <text-input class="input-field" placeholder="Date (YYYY-MM-DD)..." v-model="name"></text-input>
         <text>{{date}}</text>
         <touchable-opacity>
@@ -56,17 +57,11 @@ export default {
         margin-left: 5;
     }
 
-
     .input-field {
-                /* background-color: green; */
-        /* text-align: center; */
-        /* justify-content: center; */
-        /* color: yellow; */
         font-size: 35;
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        /* border: 2px solid black; */
         border-color: black;
         border-width: 3;
         border-radius: 5;
@@ -83,7 +78,6 @@ export default {
         font-size: 25;
         padding-left: 5;
         padding-right: 5;
-        /* justify-content: end; */
         margin-top: 10;
     }
 </style>
