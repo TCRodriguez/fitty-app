@@ -49,6 +49,24 @@ export default {
             .then(response => {
                 console.log("Client saved.")
                 console.log(response)
+                fittyApiClient.get('clients', {
+                    headers: {
+                        'Authorization': store.state.token
+                    }
+                })
+                .then(response => {
+                    const payload = response.data.data
+                    const clients = payload.map(client => {
+                        return {
+                            id: client.id,
+                            text: client.first_name
+                        }
+                    })
+                    store.dispatch('updateClientList', clients)
+                })
+                .catch(error => {
+                    console.log(error.response)
+                })
             })
             .catch(error => {
                 console.log(error.response)

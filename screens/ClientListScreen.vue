@@ -37,12 +37,19 @@ export default {
 
     computed: {
         clients() {
-            return this.results.map(client => {
-                    return {
-                        id: client.id,
-                        text: client.first_name
-                    }
-            });
+            // return this.results.map(client => {
+            //         return {
+            //             id: client.id,
+            //             text: client.first_name
+            //         }
+            // });
+            // return store.state.clients.map(client => {
+            //     return {
+            //         id: client.id,
+            //         text: client.first_name
+            //     }
+            // })
+            return store.state.clients;
         }
     },
 
@@ -55,7 +62,7 @@ export default {
         }
     },
 
-    beforeMount() {
+    mounted() {
         // ? Could the code that triggers a refresh go here?
         fittyApiClient.get('clients', {
             headers: {
@@ -63,9 +70,18 @@ export default {
             }
         })
             .then(response => {
-                console.log("it worked!")
-
-                this.results = response.data.data;
+                console.log("it worked!");
+                console.log(response.data.data);
+                // store.state.clients = response.data.data;
+                // this.results = response.data.data;
+                const payload = response.data.data
+                const clients = payload.map(client => {
+                    return {
+                        id: client.id,
+                        text: client.first_name
+                    }
+                })
+                store.dispatch('updateClientList', clients)
             })
             .catch(error => {
                 console.log("it didn't work!")

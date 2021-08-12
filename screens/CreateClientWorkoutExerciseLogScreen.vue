@@ -11,7 +11,7 @@
         <text-input class="input-field" placeholder="Duration..." v-model="duration"></text-input>
 
         <touchable-opacity>
-            <text class="save-button" @press="createClientWorkoutExerciseLog()">Save</text>
+            <text class="save-button" @press="() => createClientWorkoutExerciseLog()">Save</text>
         </touchable-opacity>
     </view>
 </template>

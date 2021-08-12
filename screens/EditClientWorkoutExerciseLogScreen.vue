@@ -111,7 +111,8 @@ export default {
         padding-bottom: 5;
     }
 
-    .save-button {
+    .save-button,
+    .delete-button {
         border-color: black;
         border-width: 3;
         border-radius: 5;
@@ -120,5 +121,9 @@ export default {
         padding-left: 5;
         padding-right: 5;
         margin-top: 10;
+    }
+    
+    .delete-button {
+        background-color: red;
     }
 </style>
