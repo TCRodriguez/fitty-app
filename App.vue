@@ -1,0 +1,88 @@
+<template>
+  <app-navigator></app-navigator>
+</template>
+
+
+<script>
+  import { LogBox } from 'react-native';
+  LogBox.ignoreAllLogs();
+
+  import {
+    createAppContainer,
+    createStackNavigator,
+  } from "vue-native-router";
+
+  import LoginScreen from "./screens/LoginScreen.vue";
+  import HomeScreen from "./screens/HomeScreen.vue";
+
+  import ClientListScreen from "./screens/ClientListScreen.vue";
+  import CreateClientScreen from "./screens/CreateClientScreen.vue";
+  import ClientEditScreen from "./screens/ClientEditScreen.vue";
+
+  import ExerciseListScreen from "./screens/ExerciseListScreen.vue";
+  import CreateExerciseScreen from "./screens/CreateExerciseScreen.vue";
+  import EditExerciseScreen from "./screens/EditExerciseScreen.vue";
+
+  import ClientWorkoutsListScreen from "./screens/ClientWorkoutsListScreen.vue";
+  import ClientWorkoutScreen from "./screens/ClientWorkoutScreen.vue";
+  import CreateClientWorkoutScreen from "./screens/CreateClientWorkoutScreen.vue";
+  import EditClientWorkoutScreen from "./screens/EditClientWorkoutScreen.vue";
+
+  import CreateClientWorkoutExerciseLogScreen from "./screens/CreateClientWorkoutExerciseLogScreen.vue";
+  import EditClientWorkoutExerciseLogScreen from "./screens/EditClientWorkoutExerciseLogScreen.vue";
+
+  import DetailsScreen from "./screens/DetailsScreen.vue";
+
+  const StackNavigator = createStackNavigator(
+    {
+      Login: LoginScreen,
+      Home: HomeScreen,
+
+      Clients: ClientListScreen,
+      CreateClient: CreateClientScreen,
+      EditClient: ClientEditScreen,
+
+      Exercises: ExerciseListScreen,
+      CreateExercise: CreateExerciseScreen,
+      EditExercise: EditExerciseScreen,
+
+      ClientWorkouts: ClientWorkoutsListScreen,
+      ClientWorkout: ClientWorkoutScreen,
+      CreateClientWorkout: CreateClientWorkoutScreen,
+      EditClientWorkout: EditClientWorkoutScreen,
+
+      CreateClientWorkoutExerciseLog: CreateClientWorkoutExerciseLogScreen,
+      EditClientWorkoutExerciseLog: EditClientWorkoutExerciseLogScreen,
+
+      Details: DetailsScreen,
+    },
+    {
+      initialRouteName: 'Login',
+    }
+  );
+
+  const AppNavigator = createAppContainer(StackNavigator);
+
+  export default {
+    components: { AppNavigator },
+    data() {
+      return {
+      }
+    },
+  }
+</script>
+
+<style>
+  body {
+    overflow-y: scroll;
+  }
+  .container {
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+  .text-color-primary {
+    color: blue;
+  }
+</style>
