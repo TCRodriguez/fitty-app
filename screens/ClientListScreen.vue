@@ -64,29 +64,30 @@ export default {
 
     mounted() {
         // ? Could the code that triggers a refresh go here?
-        fittyApiClient.get('clients', {
-            headers: {
-                Authorization: store.state.token
-            }
-        })
-            .then(response => {
-                console.log("it worked!");
-                console.log(response.data.data);
-                // store.state.clients = response.data.data;
-                // this.results = response.data.data;
-                const payload = response.data.data
-                const clients = payload.map(client => {
-                    return {
-                        id: client.id,
-                        text: client.first_name
-                    }
-                })
-                store.dispatch('updateClientList', clients)
-            })
-            .catch(error => {
-                console.log("it didn't work!")
-                console.log(error)
-            })
+        // fittyApiClient.get('clients', {
+        //     headers: {
+        //         Authorization: store.state.token
+        //     }
+        // })
+        // .then(response => {
+        //     console.log("it worked!");
+        //     console.log(response.data.data);
+        //     // store.state.clients = response.data.data;
+        //     // this.results = response.data.data;
+        //     const payload = response.data.data
+        //     const clients = payload.map(client => {
+        //         return {
+        //             id: client.id,
+        //             text: client.first_name
+        //         }
+        //     })
+        //     store.dispatch('updateClientList', clients)
+        // })
+        // .catch(error => {
+        //     console.log("it didn't work!")
+        //     console.log(error)
+        // })
+        store.dispatch('updateClientList')
     },
 
     methods: {
