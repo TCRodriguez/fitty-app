@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import fittyApiClient from '../axios-http.js';
 import store from "../store/store.js"
 
 export default {
@@ -37,19 +36,8 @@ export default {
 
     computed: {
         clients() {
-            // return this.results.map(client => {
-            //         return {
-            //             id: client.id,
-            //             text: client.first_name
-            //         }
-            // });
-            // return store.state.clients.map(client => {
-            //     return {
-            //         id: client.id,
-            //         text: client.first_name
-            //     }
-            // })
-            return store.state.clients;
+        // ? We can make use of mapState() here...
+            return store.state.clients.clients;
         }
     },
 
@@ -63,31 +51,7 @@ export default {
     },
 
     mounted() {
-        // ? Could the code that triggers a refresh go here?
-        // fittyApiClient.get('clients', {
-        //     headers: {
-        //         Authorization: store.state.token
-        //     }
-        // })
-        // .then(response => {
-        //     console.log("it worked!");
-        //     console.log(response.data.data);
-        //     // store.state.clients = response.data.data;
-        //     // this.results = response.data.data;
-        //     const payload = response.data.data
-        //     const clients = payload.map(client => {
-        //         return {
-        //             id: client.id,
-        //             text: client.first_name
-        //         }
-        //     })
-        //     store.dispatch('updateClientList', clients)
-        // })
-        // .catch(error => {
-        //     console.log("it didn't work!")
-        //     console.log(error)
-        // })
-        store.dispatch('updateClientList')
+        store.dispatch('clients/updateClientList', null, {root:true})
     },
 
     methods: {
