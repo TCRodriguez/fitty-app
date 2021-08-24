@@ -4,6 +4,10 @@
 
 
 <script>
+  import store from './store/store'
+  import Vue from 'vue-native-core'
+  Vue.prototype.$store = store
+  
   import { LogBox } from 'react-native';
   LogBox.ignoreAllLogs();
 

@@ -1,5 +1,5 @@
 import fittyApiClient from '../axios-http'
-import * as clients from '../store/modules/clients'
+import clients from '../store/modules/clients'
 
 import Vue from 'vue-native-core';
 import Vuex from 'vuex';

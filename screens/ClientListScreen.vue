@@ -24,7 +24,9 @@
 </template>
 
 <script>
-import store from "../store/store.js"
+// import store from "../store/store.js"
+import { mapState } from 'vuex'
+
 
 export default {
     data() {
@@ -35,10 +37,14 @@ export default {
     },
 
     computed: {
-        clients() {
-        // ? We can make use of mapState() here...
-            return store.state.clients.clients;
-        }
+        ...mapState('clients', {
+                clients: state => state.list
+            })
+        // clients() {
+        // // ? We can make use of mapState() here...
+
+        //     // return store.state.clients.clients;
+        // }
     },
 
     props: {
@@ -51,7 +57,7 @@ export default {
     },
 
     mounted() {
-        store.dispatch('clients/updateClientList', null, {root:true})
+        this.$store.dispatch('clients/updateClientList')
     },
 
     methods: {
