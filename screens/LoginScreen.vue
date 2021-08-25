@@ -37,21 +37,18 @@ export default {
     },
     methods: {
         login() {
-            fittyApiClient.post('login', {
+            const payload = {
                 email: this.email,
-                password: this.password,
-            })
+                password: this.password
+            }
+            this.$store.dispatch('login/login', payload)
             .then(response => {
-                console.log("Login route hit");
-                console.log(response.data.data)
-                store.dispatch('updateToken', `Bearer ${response.data.data.token}`)
-                console.log(store.state.token);
                 this.navigation.navigate('Home')
             })
             .catch(error => {
                 console.log(error.response)
-                console.log("There was a problem logging in.")
             })
+
         },
         goToClientWorkoutsListScreen() {
             this.navigation.navigate("ClientWorkouts", {

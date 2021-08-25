@@ -47,10 +47,10 @@ export default {
     },
 
     actions: {
-        updateClientList(context) {
+        updateClientList({context, rootState, commit}) {
             fittyApiClient.get('clients', {
                 headers: {
-                    Authorization: store.state.token
+                    Authorization: rootState.login.token
                 }
             })
             .then(response => {
@@ -63,14 +63,14 @@ export default {
                         text: client.first_name
                     }
                 })
-                context.commit('updateClientList', clients)
+                commit('updateClientList', clients)
             })
             .catch(error => {
                 console.log("it didn't work!")
                 console.log(error)
             })
         },
-        createClient({commit}) {
+        // createClient({commit}) {
             // return new Promise ((resolve, reject) => {
             //     fittyApiClient.get('clients', {
             //         headers: {
@@ -96,7 +96,7 @@ export default {
             //         reject(error)
             //     })
             // })
-        }
+        // }
     },
     mutations: {
         updateClientList(state, clients) {
