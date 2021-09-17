@@ -35,44 +35,18 @@ export default {
     },
     methods: {
         createClient() {
-            fittyApiClient.post('clients', {
+            const payload = {
                 first_name: this.firstName,
                 last_name: this.lastName,
                 starting_weight: this.startingWeight,
                 email: this.email,
                 phone_number: this.phoneNumber
-                },
-                { headers: {
-                    'Authorization': store.state.token
-                },
-            })
+            }
+            this.$store.dispatch('clients/createClient', payload)
             .then(response => {
-                console.log("Client saved.")
-                console.log(response)
-                fittyApiClient.get('clients', {
-                    headers: {
-                        'Authorization': store.state.token
-                    }
-                })
-                .then(response => {
-                    const payload = response.data.data
-                    const clients = payload.map(client => {
-                        return {
-                            id: client.id,
-                            text: client.first_name
-                        }
-                    })
-                    store.dispatch('updateClientList', clients)
-                })
-                .catch(error => {
-                    console.log(error.response)
-                })
+                // may change this to navigate to the createClientWorkoutScreen.vue for better UX
+                this.navigation.navigate("Clients")
             })
-            .catch(error => {
-                console.log(error.response)
-                console.log("Client NOT saved")
-            });
-            this.navigation.navigate("Clients")
         },
     }
 }
