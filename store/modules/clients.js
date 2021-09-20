@@ -43,7 +43,7 @@ import store from '../store.js';
 export default {
     namespaced: true,
     state: {
-        list: []
+        list: [],
     },
 
     actions: {
@@ -61,7 +61,12 @@ export default {
                     const clients = payload.map(client => {
                         return {
                             id: client.id,
-                            text: client.first_name
+                            name: client.first_name + ' ' + client.last_name,
+                            first_name: client.first_name,
+                            last_name: client.last_name,
+                            starting_weight: payload.starting_weight,
+                            email: payload.email,
+                            phone_number: payload.phone_number,
                         }
                     })
                     commit('updateClientList', clients)
@@ -118,7 +123,70 @@ export default {
                     reject(error)
                 });
             })
-        }
+        },
+        getClient({state}, clientId) {
+            // fittyApiClient.get(`clients/${clientId}`, {
+            //     headers: {
+            //         'Authorization': rootState.login.token
+            //     }
+            // })
+            // .then(response => {
+            //     console.log(response)
+            //     this.firstName = response.data.data.first_name
+            //     this.lastName = response.data.data.last_name
+            //     this.startingWeight = response.data.data.starting_weight
+            //     this.email = response.data.data.email
+            //     this.phoneNumber = response.data.data.phone_number
+            // })
+            // .catch(error => {
+            //     console.log(error.response)
+            // })
+            // console.log("I'm about to print the list of clients in the state!")
+            // console.log(state.list)
+            const result = state.list.find(client => client.id === clientId)
+            return result;
+        },
+        editClient({rootState, dispatch}, payload) {
+            fittyApiClient.put(`clients/${payload.clientId}/`, {
+                first_name: payload.first_name,
+                last_name: payload.last_name,
+                starting_weight: payload.starting_weight,
+                email: payload.email,
+                phone_number: payload.phone_number
+                },
+                { headers: {
+                    Authorization: rootState.login.token
+                },
+            })
+            .then(response => {
+                console.log("Client updated.")
+                console.log(response)
+                fittyApiClient.get('clients', {
+                    headers: {
+                        'Authorization': rootState.login.token
+                    }
+                })
+                .then(response => {
+                    const results = response.data.data
+                    const clients = results.map(client => {
+                        return {
+                            id: client.id,
+                            text: client.first_name
+                        }
+                    })
+                    console.log('Are we here?')
+                    dispatch('updateClientList', clients)
+
+                })
+                .catch(error => {
+                    console.log(error.response)
+                })
+            })
+            .catch(error => {
+                console.log(error.response)
+                console.log("Client NOT saved")
+            });
+        },
     },
     mutations: {
         updateClientList(state, clients) {

@@ -15,7 +15,7 @@
                 :key="client.id" 
                 :client="client"
                 @press="goToClientWorkoutsListScreen(client.id)"
-            >{{ client.text }}</text>
+            >{{ client.name }}</text>
 
             <button title="Go to details screen" @press="goToDetailsScreen"></button>
             <button title="Go to home screen" @press="goToHomeScreen"></button>

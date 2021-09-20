@@ -7,6 +7,7 @@
         <text-input placeholder="Starting weight" keyboardType="numeric" class="input-field" v-model="startingWeight"/>
         <text>{{startingWeight}}</text>
         <text-input placeholder="Email" class="input-field" v-model="email"/>
+        <text>{{email}}</text>
         <text-input placeholder="Phone number" class="input-field" v-model="phoneNumber"/>
 
         <touchable-opacity>
@@ -27,6 +28,7 @@ export default {
     },
     data() {
         return {
+            id: null,
             firstName: '',
             lastName: '',
             startingWeight: null,
@@ -35,46 +37,74 @@ export default {
         }
     },
     mounted() {
-        fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}`, {
-            headers: {
-                'Authorization': store.state.token
-            }
-        })
+        // fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}`, {
+        //     headers: {
+        //         'Authorization': rootState.login.token
+        //     }
+        // })
+        // .then(response => {
+        //     console.log(response)
+        //     this.firstName = response.data.data.first_name
+        //     this.lastName = response.data.data.last_name
+        //     this.startingWeight = response.data.data.starting_weight
+        //     this.email = response.data.data.email
+        //     this.phoneNumber = response.data.data.phone_number
+        // })
+        // .catch(error => {
+        //     console.log(error.response)
+        // })
+        this.$store.dispatch('clients/getClient', this.navigation.getParam('clientId'))
         .then(response => {
-            console.log(response)
-            this.firstName = response.data.data.first_name
-            this.lastName = response.data.data.last_name
-            this.startingWeight = response.data.data.starting_weight
-            this.email = response.data.data.email
-            this.phoneNumber = response.data.data.phone_number
-        })
-        .catch(error => {
-            console.log(error.response)
+            // console.log("Can you see this response...??!?!")
+            // console.log(response)
+            this.id = response.id
+            this.firstName = response.first_name
+            this.lastName = response.last_name
+            this.startingWeight = response.starting_weight
+            this.email = response.email
+            this.phoneNumber = response.phone_number
         })
     },
     methods: {
         editClient() {
-            fittyApiClient.put(`clients/${this.navigation.getParam('clientId')}/`, {
+            // fittyApiClient.put(`clients/${this.navigation.getParam('clientId')}/`, {
+            //     first_name: this.firstName,
+            //     last_name: this.lastName,
+            //     starting_weight: this.startingWeight,
+            //     email: this.email,
+            //     phone_number: this.phoneNumber
+            //     },
+            //     { headers: {
+            //         'Authorization': store.state.token
+            //     },
+            // })
+            // .then(response => {
+            //     console.log("Client updated.")
+            //     console.log(response)
+
+            // })
+            // .catch(error => {
+            //     console.log(error.response)
+            //     console.log("Client NOT saved")
+            // });
+            // this.navigation.navigate("Clients")
+            const payload = {
+                clientId: this.id,
                 first_name: this.firstName,
                 last_name: this.lastName,
                 starting_weight: this.startingWeight,
                 email: this.email,
                 phone_number: this.phoneNumber
-                },
-                { headers: {
-                    'Authorization': store.state.token
-                },
-            })
+            }
+            console.log(this.email)
+            this.$store.dispatch('clients/editClient', payload)
             .then(response => {
-                console.log("Client updated.")
-                console.log(response)
-
+                // may change this to navigate to the createClientWorkoutScreen.vue for better UX
+                // this.navigation.navigate("Clients")
             })
-            .catch(error => {
-                console.log(error.response)
-                console.log("Client NOT saved")
-            });
-            this.navigation.navigate("Clients")
+            this.navigation.navigate("ClientWorkouts", {
+                clientId: this.id
+            })
         },
     }
 }

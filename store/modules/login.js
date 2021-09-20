@@ -1,9 +1,5 @@
 import fittyApiClient from '../../axios-http'
 
-
-
-
-
 export default {
     namespaced: true,
     state: {
