@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import store from '../store/store'
 import fittyApiClient from '../axios-http.js';
 
@@ -39,35 +40,38 @@ export default {
     },
     data() {
       return {
-        clientWorkouts: [],
-        clientWorkoutExerciseLogs: null,
+        // clientWorkouts: [],
+        // clientWorkoutExerciseLogs: null,
       }
     },
     computed: {
-      clientWorkouts() {
-        return this.clientWorkouts.map(clientWorkout => {
-          return {
-              id: clientWorkout.id, 
-              date: clientWorkout.date,
-              name: clientWorkout.name,
-              logs: clientWorkout.logs
-          }
-        });
-      }
+      // clientWorkouts() {
+        // return this.clientWorkouts.map(clientWorkout => {
+        //   return {
+        //       id: clientWorkout.id, 
+        //       date: clientWorkout.date,
+        //       name: clientWorkout.name,
+        //       logs: clientWorkout.logs
+        //   }
+        // });
+      ...mapState('clientWorkouts', {
+        clientWorkouts: state => state.workouts
+      })
     },
-    created() {
-      fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts`, {
-        headers: {
-          'Authorization': store.state.token
-        }
-      }) 
-      .then(response => {
-        this.clientWorkouts = response.data.data;
-      })
-      .catch(error => {
-        console.log("we DID NOT get our client workouts")
-        console.log(error)
-      })
+    mounted() {
+      // fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts`, {
+      //   headers: {
+      //     'Authorization': store.state.token
+      //   }
+      // }) 
+      // .then(response => {
+      //   this.clientWorkouts = response.data.data;
+      // })
+      // .catch(error => {
+      //   console.log("we DID NOT get our client workouts")
+      //   console.log(error)
+      // })
+      this.$store.dispatch('clientWorkouts/updateWorkouts', this.navigation.getParam('clientId'))
     },
     methods: {
       goToClientEditScreen() {

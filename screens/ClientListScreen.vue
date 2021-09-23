@@ -40,11 +40,6 @@ export default {
         ...mapState('clients', {
                 clients: state => state.list
             })
-        // clients() {
-        // // ? We can make use of mapState() here...
-
-        //     // return store.state.clients.clients;
-        // }
     },
 
     props: {
