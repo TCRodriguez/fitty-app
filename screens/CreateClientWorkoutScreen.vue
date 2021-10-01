@@ -22,31 +22,49 @@ export default {
     },
     data() {
         return {
-            clientId: this.navigation.getParam('clientId'),
-            name: ''
+            // clientId: this.navigation.getParam('clientId'),
+            clientId: null,
+            name: '',
         }
     },
     created() {
         this.clientId = this.navigation.getParam('clientId')
     },
     methods: {
+        // createClientWorkout() {
+        //     fittyApiClient.post(`clients/${this.navigation.getParam('clientId')}/workouts`, {
+        //         client_id: this.clientId,
+        //         name: this.name
+        //         },
+        //         { headers: {
+        //             'Authorization': store.state.token
+        //         },
+        //     })
+        //     .then(response => {
+        //         console.log(response)
+        //         this.navigation.navigate('ClientWorkout', {
+        //             client_id: this.clientId
+        //         })
+        //     })
+        //     .catch(error => {
+        //         console.log(error.response)
+        //     })
+        // }
         createClientWorkout() {
-            fittyApiClient.post(`clients/${this.navigation.getParam('clientId')}/workouts`, {
-                client_id: this.clientId,
+            const payload = {
+                clientId: this.clientId,
                 name: this.name
-                },
-                { headers: {
-                    'Authorization': store.state.token
-                },
-            })
+            }
+            this.$store.dispatch('clientWorkouts/createClientWorkout', payload)
             .then(response => {
-                console.log(response)
-                this.navigation.navigate('ClientWorkout', {
-                    client_id: this.clientId
+                // console.log(response)
+                // Go to the ClientWorkout screen to add logs
+                // Get workout ID and client ID from the response and pass it along with this navigation
+                this.navigation.navigate("ClientWorkout", {
+                    clientId: this.clientId,
+                    workoutId: response.data.data.id,
+                    clientWorkoutName: response.data.data.name
                 })
-            })
-            .catch(error => {
-                console.log(error.response)
             })
         }
     }

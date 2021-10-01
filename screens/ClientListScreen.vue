@@ -75,7 +75,7 @@ export default {
         goToClientWorkoutsListScreen(clientId) {
             this.clientId = clientId;
             console.log(this.clientId + "!");
-            console.log('Clicent Id: ', this.clientId);
+            console.log('Client Id: ', this.clientId);
             this.navigation.navigate("ClientWorkouts", {
                 clientId: this.clientId,
             })

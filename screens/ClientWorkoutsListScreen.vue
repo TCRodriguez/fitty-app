@@ -81,27 +81,27 @@ export default {
       },
       goToCreateClientWorkoutScreen() {
         console.log(this.navigation.getParam('clientId'))
-      this.navigation.navigate('CreateClientWorkout', {
-          clientId: this.navigation.getParam('clientId')
-      })
-        },
-        goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName) {
-          this.clientWorkoutExerciseLogs = [];
-          this.clientWorkoutExerciseLogs = 
-            this.clientWorkouts.find(clientWorkout => clientWorkout.id == clientWorkoutId).logs;
+        this.navigation.navigate('CreateClientWorkout', {
+            clientId: this.navigation.getParam('clientId')
+        })
+      },
+      goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName) {
+        this.clientWorkoutExerciseLogs = [];
+        this.clientWorkoutExerciseLogs = 
+          this.clientWorkouts.find(clientWorkout => clientWorkout.id == clientWorkoutId).logs;
 
-          this.navigation.navigate('ClientWorkout', {
-            clientId: this.navigation.getParam('clientId'),
-            workoutId: clientWorkoutId,
-            workoutName: clientWorkoutName
-          });
-        },
-        goToClientListScreen() {
-            this.navigation.navigate("Clients");
-        },
-        goToHomeScreen() {
-            this.navigation.navigate("Home")
-        }
+        this.navigation.navigate('ClientWorkout', {
+          clientId: this.navigation.getParam('clientId'),
+          workoutId: clientWorkoutId,
+          workoutName: clientWorkoutName
+        });
+      },
+      goToClientListScreen() {
+          this.navigation.navigate("Clients");
+      },
+      goToHomeScreen() {
+          this.navigation.navigate("Home")
+      }
     }
 }
 </script>

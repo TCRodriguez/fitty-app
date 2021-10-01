@@ -32,13 +32,49 @@ export default {
                 })
             })
 
+        },
+        createClientWorkout({rootState, dispatch}, payload) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.post(`clients/${payload.clientId}/workouts`, {
+                    client_id: payload.clientId,
+                    name: payload.name
+                    },
+                    { headers: {
+                        'Authorization': rootState.login.token
+                    },
+                })
+                .then(response => {
+                    // console.log(response)
+                    // fittyApiClient.get(`clients/${clientId}/workouts`, {
+                    //     headers: {
+                    //         'Authorization': rootState.login.token
+                    //     }
+                    // })
+                    // .then(response => {
+                    //     const payload = response.data.data
+                    //     const workouts = payload.map(workout => {
+                    //         return {
+                    //             client_id: workout.clientId,
+                    //             name: workout.name
+                    //         }
+                    //     })
+                    //     dispatch('updateWorkouts', workouts)
+                    // })
+                    dispatch('updateWorkouts', payload.clientId)
+                    resolve(response)
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    reject(error)
+                })
+            })
         }
     },
 
     mutations: {
         UPDATE_WORKOUTS(state, workouts) {
             state.workouts = workouts
-            console.log(state.workouts)
+            // console.log(state.workouts)
         }
     }
 

@@ -13,6 +13,9 @@
                 class="optionsButton"
                 @press="goToEditClientWorkoutScreen()"
             >Edit Workout Date</text>
+            <text>
+                {{clientWorkoutName}}
+            </text>
 
             <text
                 class="clientWorkoutExerciseLog"

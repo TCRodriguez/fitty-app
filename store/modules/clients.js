@@ -125,24 +125,6 @@ export default {
             })
         },
         getClient({state}, clientId) {
-            // fittyApiClient.get(`clients/${clientId}`, {
-            //     headers: {
-            //         'Authorization': rootState.login.token
-            //     }
-            // })
-            // .then(response => {
-            //     console.log(response)
-            //     this.firstName = response.data.data.first_name
-            //     this.lastName = response.data.data.last_name
-            //     this.startingWeight = response.data.data.starting_weight
-            //     this.email = response.data.data.email
-            //     this.phoneNumber = response.data.data.phone_number
-            // })
-            // .catch(error => {
-            //     console.log(error.response)
-            // })
-            // console.log("I'm about to print the list of clients in the state!")
-            // console.log(state.list)
             const result = state.list.find(client => client.id === clientId)
             return result;
         },
