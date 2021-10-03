@@ -44,28 +44,32 @@ export default {
                     },
                 })
                 .then(response => {
-                    // console.log(response)
-                    // fittyApiClient.get(`clients/${clientId}/workouts`, {
-                    //     headers: {
-                    //         'Authorization': rootState.login.token
-                    //     }
-                    // })
-                    // .then(response => {
-                    //     const payload = response.data.data
-                    //     const workouts = payload.map(workout => {
-                    //         return {
-                    //             client_id: workout.clientId,
-                    //             name: workout.name
-                    //         }
-                    //     })
-                    //     dispatch('updateWorkouts', workouts)
-                    // })
                     dispatch('updateWorkouts', payload.clientId)
                     resolve(response)
                 })
                 .catch(error => {
                     console.log(error.response)
                     reject(error)
+                })
+            })
+        },
+        editClientWorkout({rootState, dispatch}, payload) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.put(`clients/${payload.clientId}/workouts/${payload.workoutId}`, {
+                    client_id: payload.clientId,
+                    workout_id: payload.workoutId,
+                    name: payload.name
+                    },
+                    { headers: {
+                        'Authorization': rootState.login.token
+                    },
+                })
+                .then(response => {
+                    console.log(response)
+                    dispatch('updateWorkouts', payload.clientId)
+                })
+                .catch(error => {
+                    console.log(error.response)
                 })
             })
         }

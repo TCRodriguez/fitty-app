@@ -36,23 +36,22 @@ export default {
     },
     methods: {
         editClientWorkout() {
-            fittyApiClient.put(`clients/${this.clientId}/workouts/${this.workoutId}`, {
-                client_id: this.clientId,
-                workout_id: this.workoutId,
+            const payload = {
+                clientId: this.clientId,
+                workoutId: this.workoutId,
                 name: this.name
-                },
-                { headers: {
-                    'Authorization': store.state.token
-                },
-            })
+            }
+            this.$store.dispatch('clientWorkouts/editClientWorkout', payload)
             .then(response => {
+                console.log("ARE WE HERE?!")
                 console.log(response)
-                this.navigation.navigate('ClientWorkout', {
-                    client_id: this.clientId
-                })
+                // this.navigation.navigate('ClientWorkout', {
+                //     client_id: response.data.data.client_id
+                // })
             })
-            .catch(error => {
-                console.log(error.response)
+            this.navigation.navigate('ClientWorkout', {
+                client_id: this.clientId,
+                workoutId: this.workoutId
             })
         }
     }

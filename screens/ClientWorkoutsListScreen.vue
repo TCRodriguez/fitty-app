@@ -93,7 +93,7 @@ export default {
         this.navigation.navigate('ClientWorkout', {
           clientId: this.navigation.getParam('clientId'),
           workoutId: clientWorkoutId,
-          workoutName: clientWorkoutName
+          clientWorkoutName: clientWorkoutName
         });
       },
       goToClientListScreen() {
