@@ -76,19 +76,26 @@ export default {
         this.clientId = this.navigation.getParam('clientId')
         this.clientWorkoutName = this.navigation.getParam('clientWorkoutName')
 
-        fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts/${this.navigation.getParam('workoutId')}`, {
-            headers: {
-                'Authorization': store.state.token
-            }
-        })
-        .then(response => {
-            console.log(response.data.data.logs)
-            this.clientWorkoutExerciseLogs = response.data.data.logs
-        })
-        .catch(error => {
-            console.log(error.response)
-        })
 
+        // * Don't need this API call anymore...
+        // fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts/${this.navigation.getParam('workoutId')}`, {
+        //     headers: {
+        //         'Authorization': store.state.token
+        //     }
+        // })
+        // .then(response => {
+        //     console.log(response.data.data.logs)
+        //     this.clientWorkoutExerciseLogs = response.data.data.logs
+        // })
+        // .catch(error => {
+        //     console.log(error.response)
+        // })
+        this.$store.dispatch('clientWorkouts/getClientWorkout', this.workoutId)
+        .then(response => {
+            console.log("RESPONSE IS HERE")
+            console.log(response)
+            this.clientWorkoutExerciseLogs = response;
+        })
         console.log("We've got the logs!")
         console.log(this.clientWorkoutExerciseLogs)
     },

@@ -22,7 +22,7 @@ export default {
                     commit('UPDATE_WORKOUTS', response.data.data)
                     // this.clientWorkouts = response.data.data;
                     console.log("We got the workouts!")
-                    // console.log(response.data.data)
+                    console.log(response.data.data)
                     resolve("Updated workouts.")
                 })
                 .catch(error => {
@@ -72,6 +72,11 @@ export default {
                     console.log(error.response)
                 })
             })
+        },
+        getClientWorkout({state}, workoutId) {
+            const result = state.workouts.find(clientWorkout => clientWorkout.id == workoutId).logs
+            console.log(result)
+            return result;
         }
     },
 
