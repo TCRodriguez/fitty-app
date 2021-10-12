@@ -71,7 +71,7 @@ export default {
             });
         }
     },
-    created() {
+    mounted() {
         this.workoutId = this.navigation.getParam('workoutId')
         this.clientId = this.navigation.getParam('clientId')
         this.clientWorkoutName = this.navigation.getParam('clientWorkoutName')
@@ -90,7 +90,7 @@ export default {
         // .catch(error => {
         //     console.log(error.response)
         // })
-        this.$store.dispatch('clientWorkouts/getClientWorkout', this.workoutId)
+        this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
         .then(response => {
             console.log("RESPONSE IS HERE")
             console.log(response)

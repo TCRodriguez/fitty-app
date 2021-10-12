@@ -28,6 +28,7 @@ export default {
     },
     data() {
         return {
+            clientId: null,
             workoutId: null,
             exerciseId: null,
             sets: 0,
@@ -40,30 +41,45 @@ export default {
     created() {
         console.log("This is the workoutId that came from ClientWorkout: " + this.navigation.getParam('workoutId'))
         this.workoutId = this.navigation.getParam('workoutId')
+        this.clientId = this.navigation.getParam('clientId')
     },
     methods: {
         createClientWorkoutExerciseLog() {
-            fittyApiClient.post(`clients/${this.navigation.getParam('clientId')}/workouts/${this.workoutId}/exercise-logs`, {
-                workout_id: this.workoutId,
-                exercise_id: this.exerciseId,
+            // fittyApiClient.post(`clients/${this.navigation.getParam('clientId')}/workouts/${this.workoutId}/exercise-logs`, {
+            //     workout_id: this.workoutId,
+            //     exercise_id: this.exerciseId,
+            //     sets: this.sets,
+            //     reps: this.reps,
+            //     weight: this.weight,
+            //     duration: this.duration,
+            //     completed_at: this.completedAt,
+            //     },
+            //     { headers: {
+            //         'Authorization': store.state.token
+            //     },
+            // })
+            // .then(response => {
+            //     console.log(response)
+            //     this.navigation.navigate('ClientWorkout', {
+            //         client_id: this.clientId
+            //     })
+            // })
+            // .catch(error => {
+            //     console.log(error.response)
+            // })
+            const payload = {
+                clientId: this.clientId,
+                workoutId: this.workoutId,
+                exerciseId: this.exerciseId,
                 sets: this.sets,
                 reps: this.reps,
                 weight: this.weight,
                 duration: this.duration,
-                completed_at: this.completedAt,
-                },
-                { headers: {
-                    'Authorization': store.state.token
-                },
-            })
+                completedAt: this.completedAt
+            }
+            this.$store.dispatch('clientWorkouts/createClientWorkoutExerciseLog', payload)
             .then(response => {
-                console.log(response)
-                this.navigation.navigate('ClientWorkout', {
-                    client_id: this.clientId
-                })
-            })
-            .catch(error => {
-                console.log(error.response)
+                this.navigation.navigate('ClientWorkout')
             })
         }
     }

@@ -1,9 +1,5 @@
 import fittyApiClient from '../../axios-http';
 
-
-
-
-
 export default {
     namespaced: true,
     state: {
@@ -22,7 +18,7 @@ export default {
                     commit('UPDATE_WORKOUTS', response.data.data)
                     // this.clientWorkouts = response.data.data;
                     console.log("We got the workouts!")
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                     resolve("Updated workouts.")
                 })
                 .catch(error => {
@@ -73,10 +69,74 @@ export default {
                 })
             })
         },
-        getClientWorkout({state}, workoutId) {
-            const result = state.workouts.find(clientWorkout => clientWorkout.id == workoutId).logs
-            console.log(result)
-            return result;
+        createClientWorkoutExerciseLog({rootState, dispatch}, payload) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.post(`clients/${payload.clientId}/workouts/${payload.workoutId}/exercise-logs`, {
+                    workout_id: payload.workoutId,
+                    exercise_id: payload.exerciseId,
+                    sets: payload.sets,
+                    reps: payload.reps,
+                    weight: payload.weight,
+                    duration: payload.duration,
+                    completed_at: payload.completedAt,
+                    },
+                    { headers: {
+                        'Authorization': rootState.login.token
+                    },
+                })
+                .then(response => {
+                    console.log(response)
+                    dispatch('updateWorkouts', payload.clientId)
+                    resolve(response)
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    reject(error)
+                })
+            })
+        },
+        getClientWorkoutExerciseLogs({state}, workoutId) {
+            return new Promise((resolve, reject) => {
+                const result = state.workouts.find(clientWorkout => clientWorkout.id == workoutId).logs
+                console.log(result)
+                resolve(result);
+            })
+
+        },
+        getClientWorkoutExerciseLog({state}, ids) {
+            const logs = state.workouts.find(clientWorkout => clientWorkout.id == ids.clientWorkoutId).logs
+            const log = logs.find(log => log.id == ids.clientWorkoutExerciseLogId)
+            return log;
+
+        },
+        editClientWorkoutExerciseLog({state, rootState, dispatch}, payload) {
+            const clientId = state.workouts.find(clientWorkout => clientWorkout.id == payload.workoutId).client_id
+
+            return new Promise((resolve, reject) => {
+                fittyApiClient.put(`clients/${clientId}/workouts/${payload.workoutId}/exercise-logs/${payload.clientWorkoutExerciseLogId}`, {
+                    workout_id: payload.workoutId,
+                    exercise_id: payload.exerciseId,
+                    sets: payload.sets,
+                    reps: payload.reps,
+                    weight: payload.weight,
+                    duration: payload.duration,
+                    completed_at: payload.completedAt,
+                    },
+                    { headers: {
+                        'Authorization': rootState.login.token
+                    },
+                })
+                .then(response => {
+                    console.log(response)
+                    dispatch('updateWorkouts', clientId)
+                    resolve(response)
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    reject(error)
+                })
+            })
+
         }
     },
 
