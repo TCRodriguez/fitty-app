@@ -1,6 +1,6 @@
 <template>
     <view>
-        <text>This is the Create Exercise Screen</text>
+        <text>This is the Edit Exercise Screen</text>
 
         <text-input class="input-field" placeholder="Exercise Name..." v-model="exerciseName"></text-input>
         <text>{{exerciseName}}</text>
@@ -33,20 +33,31 @@ export default {
     },
     methods: {
         editExercise() {
-            fittyApiClient.put(`exercises/${this.navigation.getParam('exerciseId')}`, {
-                exercise_name: this.exerciseName
-                },
-                { headers: {
-                    'Authorization': store.state.token
-                },
-            })
-            .then(response => {
-                console.log(response)
-                this.navigation.navigate('Exercises')
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
+
+            console.log("The exerciseId is: " + this.exerciseId)
+
+            const payload = {
+                exerciseId: this.exerciseId,
+                exerciseName: this.exerciseName,
+            }
+            // fittyApiClient.put(`exercises/${this.navigation.getParam('exerciseId')}`, {
+            //     exercise_name: this.exerciseName
+            //     },
+            //     { headers: {
+            //         'Authorization': store.state.token
+            //     },
+            // })
+            // .then(response => {
+            //     console.log(response)
+            //     this.navigation.navigate('Exercises')
+            // })
+            // .catch(error => {
+            //     console.log(error.response)
+            // })
+        this.$store.dispatch('trainerExercises/editExercise', payload)
+        .then(response => {
+            this.navigation.navigate('Exercises')
+        })
         }
     }
 }

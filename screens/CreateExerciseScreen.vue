@@ -28,19 +28,23 @@ export default {
     },
     methods: {
         createExercise() {
-            fittyApiClient.post('exercises', {
-                exercise_name: this.exerciseName
-                },
-                { headers: {
-                    'Authorization': store.state.token
-                },
-            })
+            // fittyApiClient.post('exercises', {
+            //     exercise_name: this.exerciseName
+            //     },
+            //     { headers: {
+            //         'Authorization': store.state.token
+            //     },
+            // })
+            // .then(response => {
+            //     console.log(response)
+            //     this.navigation.navigate('Exercises')
+            // })
+            // .catch(error => {
+            //     console.log(error.response)
+            // })
+            this.$store.dispatch('trainerExercises/createExercise', this.exerciseName)
             .then(response => {
-                console.log(response)
                 this.navigation.navigate('Exercises')
-            })
-            .catch(error => {
-                console.log(error.response)
             })
         }
     }
