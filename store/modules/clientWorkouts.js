@@ -4,6 +4,8 @@ export default {
     namespaced: true,
     state: {
         workouts: [],
+        // For one workout at a time currently.
+        logs: [],
     },
 
     actions: {
@@ -69,6 +71,9 @@ export default {
                 })
             })
         },
+        updateLogs({commit}, logs) {
+            commit('UPDATE_LOGS', logs)
+        },
         createClientWorkoutExerciseLog({rootState, dispatch}, payload) {
             return new Promise((resolve, reject) => {
                 fittyApiClient.post(`clients/${payload.clientId}/workouts/${payload.workoutId}/exercise-logs`, {
@@ -87,6 +92,9 @@ export default {
                 .then(response => {
                     console.log(response)
                     dispatch('updateWorkouts', payload.clientId)
+                    .then(() => {
+                        dispatch('getClientWorkoutExerciseLogs', payload.workoutId)
+                    })
                     resolve(response)
                 })
                 .catch(error => {
@@ -95,10 +103,11 @@ export default {
                 })
             })
         },
-        getClientWorkoutExerciseLogs({state}, workoutId) {
+        getClientWorkoutExerciseLogs({state, commit}, workoutId) {
             return new Promise((resolve, reject) => {
                 const result = state.workouts.find(clientWorkout => clientWorkout.id == workoutId).logs
                 console.log(result)
+                commit('UPDATE_LOGS', result)
                 resolve(result);
             })
 
@@ -144,6 +153,9 @@ export default {
         UPDATE_WORKOUTS(state, workouts) {
             state.workouts = workouts
             // console.log(state.workouts)
+        },
+        UPDATE_LOGS(state, logs) {
+            state.logs = logs
         }
     }
 

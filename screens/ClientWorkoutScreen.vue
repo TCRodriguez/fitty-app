@@ -41,6 +41,7 @@
 <script>
 import store from '../store/store'
 import fittyApiClient from '../axios-http.js';
+import { mapState } from 'vuex'
 
 export default {
     props: {
@@ -53,23 +54,26 @@ export default {
             clientId: null,
             workoutId: null,
             clientWorkoutName: null,
-            clientWorkoutExerciseLogs: []
+            // clientWorkoutExerciseLogs: []
         }
     },
     computed: {
-        clientWorkoutExerciseLogs() {
-            return this.clientWorkoutExerciseLogs.map(clientWorkoutExerciseLog => {
-                return {
-                    id: clientWorkoutExerciseLog.id,
-                    exerciseName: clientWorkoutExerciseLog.exercise_name,
-                    sets: clientWorkoutExerciseLog.sets,
-                    reps: clientWorkoutExerciseLog.reps,
-                    weight: clientWorkoutExerciseLog.weight,
-                    duration: clientWorkoutExerciseLog.duration,
-                    notes: clientWorkoutExerciseLog.notes
-                }
-            });
-        }
+        // clientWorkoutExerciseLogs() {
+        //     return this.clientWorkoutExerciseLogs.map(clientWorkoutExerciseLog => {
+        //         return {
+        //             id: clientWorkoutExerciseLog.id,
+        //             exerciseName: clientWorkoutExerciseLog.exercise_name,
+        //             sets: clientWorkoutExerciseLog.sets,
+        //             reps: clientWorkoutExerciseLog.reps,
+        //             weight: clientWorkoutExerciseLog.weight,
+        //             duration: clientWorkoutExerciseLog.duration,
+        //             notes: clientWorkoutExerciseLog.notes
+        //         }
+        //     });
+        // }
+        ...mapState('clientWorkouts', {
+            clientWorkoutExerciseLogs: state => state.logs
+        })
     },
     mounted() {
         this.workoutId = this.navigation.getParam('workoutId')
@@ -91,11 +95,11 @@ export default {
         //     console.log(error.response)
         // })
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
-        .then(response => {
-            console.log("RESPONSE IS HERE")
-            console.log(response)
-            this.clientWorkoutExerciseLogs = response;
-        })
+        // .then(response => {
+        //     console.log("RESPONSE IS HERE")
+        //     console.log(response)
+        //     this.clientWorkoutExerciseLogs = response;
+        // })
         console.log("We've got the logs!")
         console.log(this.clientWorkoutExerciseLogs)
     },
