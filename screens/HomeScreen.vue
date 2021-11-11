@@ -2,44 +2,23 @@
     <view class="container">
         <text class="button" @press="goToClientListScreen">Clients</text>
         <text class="button" @press="goToExerciseListScreen">Exercises</text>
-        <text class="inactive">Settings</text>
     </view>
 </template>
 
 <script>
-import ClientButton from "../components/clientButton.vue";
-
 export default {
-    components: { ClientButton },
-    data() {
-        return {
-
-        }
-    },
     props: {
         navigation: {
             type: Object
         }
     },
-    created() {
-
-    },
     methods: {
-        goToLoginScreen() {
-            this.navigation.navigate("Login")
-        },
         goToClientListScreen() {
             this.navigation.navigate("Clients")
         },
         goToExerciseListScreen() {
             this.navigation.navigate("Exercises")
         },
-        goToDetailsScreen() {
-            this.navigation.navigate("Details");
-        },
-        goToClientWorkoutScreen() {
-            this.navigation.navigate("ClientWorkout")
-        }
     }
 }
 </script>

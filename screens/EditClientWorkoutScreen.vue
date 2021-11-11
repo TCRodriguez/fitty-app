@@ -1,7 +1,6 @@
 <template>
     <view>
         <text>This is the Edit Workout Screen</text>
-        <text>This is the clientId: {{navigation.getParam('clientId')}}</text>
 
         <text-input class="input-field" placeholder="Date (YYYY-MM-DD)..." v-model="name"/>
         <text>{{name}}</text>
@@ -13,9 +12,6 @@
 </template>
 
 <script>
-import store from "../store/store.js"
-import fittyApiClient from '../axios-http'
-
 export default {
     props: {
         navigation: {
@@ -45,9 +41,6 @@ export default {
             .then(response => {
                 console.log("ARE WE HERE?!")
                 console.log(response)
-                // this.navigation.navigate('ClientWorkout', {
-                //     client_id: response.data.data.client_id
-                // })
             })
             this.navigation.navigate('ClientWorkout', {
                 client_id: this.clientId,

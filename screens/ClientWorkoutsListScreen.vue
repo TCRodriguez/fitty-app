@@ -3,8 +3,6 @@
         paddingVertical: 20
     }}">
       <view class="container">
-        <text>client id is: {{ navigation.getParam('clientId')}}</text>
-        
         <text
           class="optionsButton"
           @press="goToClientEditScreen()"
@@ -29,8 +27,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import store from '../store/store'
-import fittyApiClient from '../axios-http.js';
 
 export default {
     props: {
@@ -38,39 +34,12 @@ export default {
             type: Object
         },
     },
-    data() {
-      return {
-        // clientWorkouts: [],
-        // clientWorkoutExerciseLogs: null,
-      }
-    },
     computed: {
-      // clientWorkouts() {
-        // return this.clientWorkouts.map(clientWorkout => {
-        //   return {
-        //       id: clientWorkout.id, 
-        //       date: clientWorkout.date,
-        //       name: clientWorkout.name,
-        //       logs: clientWorkout.logs
-        //   }
-        // });
       ...mapState('clientWorkouts', {
         clientWorkouts: state => state.workouts
       })
     },
     mounted() {
-      // fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts`, {
-      //   headers: {
-      //     'Authorization': store.state.token
-      //   }
-      // }) 
-      // .then(response => {
-      //   this.clientWorkouts = response.data.data;
-      // })
-      // .catch(error => {
-      //   console.log("we DID NOT get our client workouts")
-      //   console.log(error)
-      // })
       this.$store.dispatch('clientWorkouts/updateWorkouts', this.navigation.getParam('clientId'))
     },
     methods: {
@@ -80,16 +49,11 @@ export default {
         })
       },
       goToCreateClientWorkoutScreen() {
-        console.log(this.navigation.getParam('clientId'))
         this.navigation.navigate('CreateClientWorkout', {
             clientId: this.navigation.getParam('clientId')
         })
       },
       goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName) {
-        this.clientWorkoutExerciseLogs = [];
-        this.clientWorkoutExerciseLogs = 
-          this.clientWorkouts.find(clientWorkout => clientWorkout.id == clientWorkoutId).logs;
-
         this.navigation.navigate('ClientWorkout', {
           clientId: this.navigation.getParam('clientId'),
           workoutId: clientWorkoutId,

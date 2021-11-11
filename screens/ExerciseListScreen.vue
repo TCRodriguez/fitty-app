@@ -28,46 +28,21 @@ import fittyApiClient from '../axios-http';
 import { mapState } from 'vuex'
 
 export default {
-    // data() {
-    //     // return {
-    //     //     exercises: []
-    //     // }
-    // },
     props: {
         navigation: {
             type: Object
         }
     },
     computed: {
-        // exercises() {
-        //     return this.exercises.map(exercise => {
-        //         return {
-        //             exercise_name: exercise.exercise_name,
-        //             exercise_id: exercise.id
-        //         }
-        //     });
-        // }
         ...mapState('trainerExercises', {
             exercises: state => state.exercises
         })
     },
     mounted() {
-        // fittyApiClient.get('exercises', {
-        //     headers: {
-        //         'Authorization': store.state.token
-        //     }
-        // })
-        // .then(response => {
-        //     console.log("We got the exercises!")
-        //     console.log(response)
-        //     this.results = response.data.data
-        //     console.log(this.results)
-        // })
         this.$store.dispatch('trainerExercises/updateExercises')
         .then(response => {
             console.log("Wait, what did we actually get?")
             console.log(response)
-            // this.exercises = response;
         })
     },
     methods: {

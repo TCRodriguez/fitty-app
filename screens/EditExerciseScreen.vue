@@ -12,9 +12,6 @@
 </template>
 
 <script>
-import store from "../store/store.js"
-import fittyApiClient from '../axios-http'
-
 export default {
     props: {
         navigation: {
@@ -40,20 +37,7 @@ export default {
                 exerciseId: this.exerciseId,
                 exerciseName: this.exerciseName,
             }
-            // fittyApiClient.put(`exercises/${this.navigation.getParam('exerciseId')}`, {
-            //     exercise_name: this.exerciseName
-            //     },
-            //     { headers: {
-            //         'Authorization': store.state.token
-            //     },
-            // })
-            // .then(response => {
-            //     console.log(response)
-            //     this.navigation.navigate('Exercises')
-            // })
-            // .catch(error => {
-            //     console.log(error.response)
-            // })
+
         this.$store.dispatch('trainerExercises/editExercise', payload)
         .then(response => {
             this.navigation.navigate('Exercises')

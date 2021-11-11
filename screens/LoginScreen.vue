@@ -1,22 +1,15 @@
 <template>
     <view class="container">
         <text class="fitty-title">fitty</text>
-        <text>This is the Login Screen.</text>
 
-        <text>{{message}}</text>
         <text-input class="login-field" placeholder="email" v-model="email"/>
-        <text>{{email}}</text>
         <text-input class="login-field" placeholder="password" v-model="password"/>
-        <text>{{password}}</text>
 
         <text class="button" @press="login()">Login</text>
     </view>
 </template>
 
 <script>
-import store from "../store/store.js";
-import fittyApiClient from '../axios-http';
-
 export default {
     data() {
         return {
@@ -30,11 +23,6 @@ export default {
             type: Object
         }
     },
-    computed: {
-        message() {
-            return store.state.message
-        },
-    },
     methods: {
         login() {
             const payload = {
@@ -42,7 +30,7 @@ export default {
                 password: this.password
             }
             this.$store.dispatch('login/login', payload)
-            .then(response => {
+            .then(() => {
                 this.navigation.navigate('Home')
             })
             .catch(error => {
@@ -50,17 +38,6 @@ export default {
             })
 
         },
-        goToClientWorkoutsListScreen() {
-            this.navigation.navigate("ClientWorkouts", {
-                client: this.clients[0]
-            })
-        },
-        goToDetailsScreen() {
-            this.navigation.navigate("Details");
-        },
-        goToHomeScreen() {
-            this.navigation.navigate("Home");
-        }
     }
 }
 </script>

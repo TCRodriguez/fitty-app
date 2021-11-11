@@ -1,7 +1,6 @@
 <template>
     <view>
         <text>This is the Create Workout Screen</text>
-        <text>This is the clientId: {{navigation.getParam('clientId')}}</text>
         
         <text-input class="input-field" placeholder="Date (YYYY-MM-DD)..." v-model="name"></text-input>
         <text>{{date}}</text>
@@ -12,8 +11,6 @@
 </template>
 
 <script>
-import store from "../store/store.js"
-import fittyApiClient from '../axios-http'
 export default {
     props: {
         navigation: {
@@ -22,7 +19,6 @@ export default {
     },
     data() {
         return {
-            // clientId: this.navigation.getParam('clientId'),
             clientId: null,
             name: '',
         }
@@ -31,25 +27,6 @@ export default {
         this.clientId = this.navigation.getParam('clientId')
     },
     methods: {
-        // createClientWorkout() {
-        //     fittyApiClient.post(`clients/${this.navigation.getParam('clientId')}/workouts`, {
-        //         client_id: this.clientId,
-        //         name: this.name
-        //         },
-        //         { headers: {
-        //             'Authorization': store.state.token
-        //         },
-        //     })
-        //     .then(response => {
-        //         console.log(response)
-        //         this.navigation.navigate('ClientWorkout', {
-        //             client_id: this.clientId
-        //         })
-        //     })
-        //     .catch(error => {
-        //         console.log(error.response)
-        //     })
-        // }
         createClientWorkout() {
             const payload = {
                 clientId: this.clientId,
@@ -57,9 +34,6 @@ export default {
             }
             this.$store.dispatch('clientWorkouts/createClientWorkout', payload)
             .then(response => {
-                // console.log(response)
-                // Go to the ClientWorkout screen to add logs
-                // Get workout ID and client ID from the response and pass it along with this navigation
                 this.navigation.navigate("ClientWorkout", {
                     clientId: this.clientId,
                     workoutId: response.data.data.id,

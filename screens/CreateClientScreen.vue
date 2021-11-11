@@ -15,9 +15,6 @@
 </template>
 
 <script>
-import store from '../store/store.js'
-import fittyApiClient from '../axios-http';
-
 export default {
     props: {
         navigation: {
@@ -43,8 +40,7 @@ export default {
                 phone_number: this.phoneNumber
             }
             this.$store.dispatch('clients/createClient', payload)
-            .then(response => {
-                // may change this to navigate to the createClientWorkoutScreen.vue for better UX
+            .then(() => {
                 this.navigation.navigate("Clients")
             })
         },

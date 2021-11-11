@@ -39,8 +39,6 @@
 </template>
 
 <script>
-import store from '../store/store'
-import fittyApiClient from '../axios-http.js';
 import { mapState } from 'vuex'
 
 export default {
@@ -54,23 +52,9 @@ export default {
             clientId: null,
             workoutId: null,
             clientWorkoutName: null,
-            // clientWorkoutExerciseLogs: []
         }
     },
     computed: {
-        // clientWorkoutExerciseLogs() {
-        //     return this.clientWorkoutExerciseLogs.map(clientWorkoutExerciseLog => {
-        //         return {
-        //             id: clientWorkoutExerciseLog.id,
-        //             exerciseName: clientWorkoutExerciseLog.exercise_name,
-        //             sets: clientWorkoutExerciseLog.sets,
-        //             reps: clientWorkoutExerciseLog.reps,
-        //             weight: clientWorkoutExerciseLog.weight,
-        //             duration: clientWorkoutExerciseLog.duration,
-        //             notes: clientWorkoutExerciseLog.notes
-        //         }
-        //     });
-        // }
         ...mapState('clientWorkouts', {
             clientWorkoutExerciseLogs: state => state.logs
         })
@@ -80,28 +64,7 @@ export default {
         this.clientId = this.navigation.getParam('clientId')
         this.clientWorkoutName = this.navigation.getParam('clientWorkoutName')
 
-
-        // * Don't need this API call anymore...
-        // fittyApiClient.get(`clients/${this.navigation.getParam('clientId')}/workouts/${this.navigation.getParam('workoutId')}`, {
-        //     headers: {
-        //         'Authorization': store.state.token
-        //     }
-        // })
-        // .then(response => {
-        //     console.log(response.data.data.logs)
-        //     this.clientWorkoutExerciseLogs = response.data.data.logs
-        // })
-        // .catch(error => {
-        //     console.log(error.response)
-        // })
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
-        // .then(response => {
-        //     console.log("RESPONSE IS HERE")
-        //     console.log(response)
-        //     this.clientWorkoutExerciseLogs = response;
-        // })
-        console.log("We've got the logs!")
-        console.log(this.clientWorkoutExerciseLogs)
     },
     methods: {
         goToEditClientWorkoutScreen() {
@@ -112,9 +75,6 @@ export default {
             })
         },
         goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLogId) {
-            console.log("This is the client id: " + this.clientId)
-            console.log("This is the workout id: " + this.workoutId)
-            console.log("This is the log id: " + clientWorkoutExerciseLogId)
             this.navigation.navigate('EditClientWorkoutExerciseLog', {
                 clientId: this.clientId,
                 workoutId: this.workoutId,
@@ -122,7 +82,6 @@ export default {
             })
         },
         goToCreateClientWorkoutExerciseLogScreen() {
-            console.log("This is the workoutId: " + this.workoutId)
             this.navigation.navigate('CreateClientWorkoutExerciseLog', {
                 clientId: this.clientId,
                 workoutId: this.workoutId,

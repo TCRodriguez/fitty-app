@@ -69,10 +69,6 @@
 
   export default {
     components: { AppNavigator },
-    data() {
-      return {
-      }
-    },
   }
 </script>
 
