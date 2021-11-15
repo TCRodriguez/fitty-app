@@ -3,32 +3,43 @@
         paddingVertical: 20
     }}">
         <view class="container">
-            <text>The workoutId is: {{workoutId}}</text>
-            <text>This is the Client Workout Screen, and these are the logs</text>
-            <text
+            <!-- <text>The workoutId is: {{workoutId}}</text>
+            <text>This is the Client Workout Screen, and these are the logs</text> -->
+
+            <!-- <text
                 class="optionsButton"
                 @press="goToClientWorkoutsListScreen()"
             >Go back to Workout screen</text>
             <text
                 class="optionsButton"
                 @press="goToEditClientWorkoutScreen()"
-            >Edit Workout Date</text>
+            >Edit Workout Date</text> -->
+
             <text>
                 {{clientWorkoutName}}
             </text>
 
-            <text
-                class="clientWorkoutExerciseLog"
-                v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
-                :key="clientWorkoutExerciseLog.id"
-                :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
-                @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
-            >
-                {{clientWorkoutExerciseLog.exercise_name}}
-                sets: {{clientWorkoutExerciseLog.sets}}
-                reps: {{clientWorkoutExerciseLog.reps}}
-                weight: {{clientWorkoutExerciseLog.weight}}
-            </text>
+            <view class="screen-header-container">
+                <text class="screen-header-text">Logs</text>
+                <text class="text-color-primary">{{clientName}}</text>
+            </view>
+
+            <view class="workout-logs">
+                <text
+                    class="clientWorkoutExerciseLog"
+                    v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
+                    :key="clientWorkoutExerciseLog.id"
+                    :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
+                    @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
+                >
+                    {{clientWorkoutExerciseLog.exercise_name}}
+                    sets: {{clientWorkoutExerciseLog.sets}}
+                    reps: {{clientWorkoutExerciseLog.reps}}
+                    weight: {{clientWorkoutExerciseLog.weight}}
+                </text>
+            </view>
+
+
 
             <touchable-opacity>
                 <text class="optionsButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
@@ -40,6 +51,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { DataTable } from 'react-native-paper'
 
 export default {
     props: {
@@ -50,6 +62,7 @@ export default {
     data() {
         return {
             clientId: null,
+            clientName: null,
             workoutId: null,
             clientWorkoutName: null,
         }
@@ -62,6 +75,7 @@ export default {
     mounted() {
         this.workoutId = this.navigation.getParam('workoutId')
         this.clientId = this.navigation.getParam('clientId')
+        this.clientName = this.navigation.getParam('clientName')
         this.clientWorkoutName = this.navigation.getParam('clientWorkoutName')
 
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
@@ -99,10 +113,42 @@ export default {
 }
 </script>
 <style scoped>
+
+    .text-color-primary {
+        color: #FCFCFC;
+    }
+
+
     .container {
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: #080708;
+        padding-left: 15;
+        padding-right: 15;
+        padding-bottom: 15;
+    }
+
+
+    .workout-logs {
+        /* background-color: #161316; */
+        padding: 10;
+        border-radius: 10;
+        /* width: 100%; */
+    }
+
+    .screen-header-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        padding-top: 25;
+        padding-bottom: 25;
+    }
+
+    .screen-header-text {
+        font-size: 50;
+        color: #FCFCFC;
+        font-weight: bold;
     }
 
 
@@ -112,9 +158,14 @@ export default {
         width: 90%;
         margin-top: 5;
         margin-bottom: 5;
-        border-color: black;
+        /* border-color: #FCFCFC;
         border-width: 3;
-        border-radius: 5;
+        border-radius: 5; */
+        color: #FCFCFC;
+        background-color: #161316;
+        padding: 10;
+        border-radius: 10;
+        width: 100%;
     }
 
     .optionsButton {

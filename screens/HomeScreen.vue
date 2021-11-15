@@ -28,6 +28,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: #080708;
+        height: 100%;
     }
 
     .button {
@@ -37,9 +39,10 @@ export default {
         width: 50%;
         margin-top: 5;
         margin-bottom: 5;
-        border-color: black;
+        border-color: #FCFCFC;
         border-width: 3;
         border-radius: 5;
+        color: #FCFCFC;
     }
 
     .inactive {

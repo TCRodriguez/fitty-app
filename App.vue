@@ -6,10 +6,19 @@
 <script>
   import store from './store/store'
   import Vue from 'vue-native-core'
+  // import { VueNativeBase } from "native-base";
+  //   Vue.use(VueNativeBase);
   Vue.prototype.$store = store
   
   import { LogBox } from 'react-native';
   LogBox.ignoreAllLogs();
+
+  
+
+
+  import { useFonts } from 'expo-font';
+ 
+
 
   import {
     createAppContainer,
@@ -39,7 +48,9 @@
 
   const StackNavigator = createStackNavigator(
     {
-      Login: LoginScreen,
+      Login: {
+        screen: LoginScreen,
+      },
       Home: HomeScreen,
 
       Clients: ClientListScreen,
@@ -62,10 +73,19 @@
     },
     {
       initialRouteName: 'Login',
-    }
+      defaultNavigationOptions: {
+        headerStyle: {
+          backgroundColor: "#080708"
+        }
+      }
+    },
   );
 
   const AppNavigator = createAppContainer(StackNavigator);
+
+  // const [loaded] = useFonts({
+  //   ArchivoBlack: require('./assets/fonts/ArchivoBlack-Regular.ttf')
+  // })
 
   export default {
     components: { AppNavigator },
@@ -77,12 +97,13 @@
     overflow-y: scroll;
   }
   .container {
-    background-color: white;
+    background-color: #080708;
     align-items: center;
     justify-content: center;
     flex: 1;
   }
   .text-color-primary {
-    color: blue;
+    color: white;
   }
 </style>
+  

@@ -3,24 +3,33 @@
         paddingVertical: 20
     }}">
       <view class="container">
-        <text
+
+        <!-- <text
           class="optionsButton"
           @press="goToClientEditScreen()"
         >Edit Client</text>
         <text
           class="optionsButton"
           @press="goToCreateClientWorkoutScreen()"
-        >Add Workout</text>
-        <text
-          class="clientWorkoutButton"
-          v-for="clientWorkout in clientWorkouts"
-          :key="clientWorkout.id"
-          :clientWorkout="clientWorkout"
-          @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)"
-        >{{clientWorkout.date}}</text>
+        >Add Workout</text> -->
+          <view class="screen-header-container">
+            <text class="screen-header-text">{{clientName}}</text>
+          </view>
+        <view class="workout-list">
+          <view
+              class="client-workout-button"
+              v-for="clientWorkout in clientWorkouts"
+              :key="clientWorkout.id"
+              :clientWorkout="clientWorkout"
+            >
+              <!-- <text class="client-workout-date">{{clientWorkout.name}}</text> -->
+              <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">YYYY-MM-DD</text>
+          </view>
+        </view>
 
-        <button title="Go to Client List screen" @press="goToClientListScreen"></button>
-        <button title="Go to Home screen" @press="goToHomeScreen"></button>
+        <!-- <button title="Go to Client List screen" @press="goToClientListScreen"></button>
+        <button title="Go to Home screen" @press="goToHomeScreen"></button> -->
+
       </view>
     </scroll-view>
 </template>
@@ -29,6 +38,11 @@
 import { mapState } from 'vuex';
 
 export default {
+    data() {
+      return {
+        clientName: null,
+      }
+    },
     props: {
         navigation: {
             type: Object
@@ -40,6 +54,7 @@ export default {
       })
     },
     mounted() {
+      this.clientName = this.navigation.getParam('clientName')
       this.$store.dispatch('clientWorkouts/updateWorkouts', this.navigation.getParam('clientId'))
     },
     methods: {
@@ -56,6 +71,7 @@ export default {
       goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName) {
         this.navigation.navigate('ClientWorkout', {
           clientId: this.navigation.getParam('clientId'),
+          clientName: this.clientName,
           workoutId: clientWorkoutId,
           clientWorkoutName: clientWorkoutName
         });
@@ -74,6 +90,11 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: #080708;
+        padding-left: 15;
+        padding-right: 15;
+        padding-bottom: 15;
+        height: 100%;
     }
 
     .optionsButton {
@@ -88,14 +109,43 @@ export default {
         border-radius: 5;
     }
 
-    .clientWorkoutButton {
+    .screen-header-container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      padding-top: 25;
+      padding-bottom: 25;
+    }
+
+    .screen-header-text {
+        font-size: 50;
+        color: #FCFCFC;
+        font-weight: bold;
+    }
+
+    .workout-list {
+      background-color: #161316;
+      padding: 10;
+      border-radius: 10;
+      width: 100%;
+    }
+
+    .client-workout-button {
         text-align: center;
         font-size: 50;
-        width: 90%;
+        width: 100%;
         margin-top: 5;
         margin-bottom: 5;
-        border-color: black;
+        /* border-color: #FCFCFC;
         border-width: 3;
-        border-radius: 5;
+        border-radius: 5; */
+        color: #FCFCFC;
     }
+
+    .client-workout-date {
+      color: #FCFCFC;
+      font-size: 25;
+    }
+
+
 </style>
