@@ -51,7 +51,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { DataTable } from 'react-native-paper'
+// import { DataTable } from 'react-native-paper'
 
 export default {
     props: {
