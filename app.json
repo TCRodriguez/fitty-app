@@ -10,6 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#080708"
     },
+    "backgroundColor": "#000000",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -17,12 +18,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "backgroundColor": "#080708"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#080708"
       }
     },
     "web": {
