@@ -1,5 +1,8 @@
 <template>
-  <app-navigator></app-navigator>
+  <PaperProvider>
+    <app-navigator></app-navigator>
+  </PaperProvider>
+
 </template>
 
 
@@ -15,7 +18,7 @@
 
   
 
-  
+  import { Provider as PaperProvider } from 'react-native-paper'
 
   import { useFonts } from 'expo-font';
  
@@ -89,7 +92,10 @@
   // })
 
   export default {
-    components: { AppNavigator },
+    components: {
+      AppNavigator,
+      PaperProvider
+    },
   }
 </script>
 

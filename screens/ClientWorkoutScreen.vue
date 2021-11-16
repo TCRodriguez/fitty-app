@@ -23,7 +23,7 @@
                 <text class="screen-header-text">Logs</text>
                 <text class="text-color-primary">{{clientName}}</text>
             </view>
-
+<!-- 
             <view class="workout-logs">
                 <text
                     class="clientWorkoutExerciseLog"
@@ -37,8 +37,27 @@
                     reps: {{clientWorkoutExerciseLog.reps}}
                     weight: {{clientWorkoutExerciseLog.weight}}
                 </text>
-            </view>
+            </view> -->
 
+            <DataTable
+                    class="clientWorkoutExerciseLog"
+                    v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
+                    :key="clientWorkoutExerciseLog.id"
+                    :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
+
+            >
+                <DataTable.Header>
+                    <DataTable.Title>Sets</DataTable.Title>
+                    <DataTable.Title>Reps</DataTable.Title>
+                    <DataTable.Title>Weight</DataTable.Title>
+                </DataTable.Header>
+
+                <DataTable.Row>
+                    <DataTable.Cell>{{clientWorkoutExerciseLog.sets}}</DataTable.Cell>
+                    <DataTable.Cell>{{clientWorkoutExerciseLog.reps}}</DataTable.Cell>
+                    <DataTable.Cell>{{clientWorkoutExerciseLog.weight}}</DataTable.Cell>
+                </DataTable.Row>
+            </DataTable>
 
 
             <touchable-opacity>
@@ -51,9 +70,10 @@
 
 <script>
 import { mapState } from 'vuex'
-// import { DataTable } from 'react-native-paper'
+import { DataTable } from 'react-native-paper';
 
 export default {
+    components: {DataTable},
     props: {
         navigation: {
             type: Object
