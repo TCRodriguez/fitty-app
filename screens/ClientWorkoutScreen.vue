@@ -23,23 +23,38 @@
                 <text class="screen-header-text">Logs</text>
                 <text class="text-color-primary">{{clientName}}</text>
             </view>
-<!-- 
-            <view class="workout-logs">
-                <text
-                    class="clientWorkoutExerciseLog"
+
+            <view>
+                <view
+                    style="width: 100%; margin-bottom: 25;"
                     v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
                     :key="clientWorkoutExerciseLog.id"
                     :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
                     @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
                 >
-                    {{clientWorkoutExerciseLog.exercise_name}}
-                    sets: {{clientWorkoutExerciseLog.sets}}
-                    reps: {{clientWorkoutExerciseLog.reps}}
-                    weight: {{clientWorkoutExerciseLog.weight}}
-                </text>
-            </view> -->
+                    <text style="color: #FCFCFC; padding-bottom: 5; padding-top: 5; font-size: 35;">{{clientWorkoutExerciseLog.exercise_name}}</text>
+                    <view class="workout-logs">
+                        <view class="table-header">
+                            <text style="font-size: 25;" class="text-color-primary bold">Set</text>
+                            <text style="font-size: 25;" class="text-color-primary bold">Reps</text>
+                            <text style="font-size: 25;" class="text-color-primary bold">Weight</text>
+                        </view>
+                        <view class="table-row"
+                            v-for="set in clientWorkoutExerciseLog.sets" 
+                            :key="set.id"
+                            :set="set"
+                        >
+                            <text class="workout-log">{{setNumber}}</text>
+                            <text class="workout-log">{{clientWorkoutExerciseLog.reps}}</text>
+                            <text class="workout-log">{{clientWorkoutExerciseLog.weight}}</text>
+                        </view>
 
-            <DataTable
+                    </view>
+
+                </view>
+            </view>
+
+            <!-- <DataTable
                     class="clientWorkoutExerciseLog"
                     v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
                     :key="clientWorkoutExerciseLog.id"
@@ -57,7 +72,7 @@
                     <DataTable.Cell>{{clientWorkoutExerciseLog.reps}}</DataTable.Cell>
                     <DataTable.Cell>{{clientWorkoutExerciseLog.weight}}</DataTable.Cell>
                 </DataTable.Row>
-            </DataTable>
+            </DataTable> -->
 
 
             <touchable-opacity>
@@ -85,6 +100,7 @@ export default {
             clientName: null,
             workoutId: null,
             clientWorkoutName: null,
+            setNumber: 1,
         }
     },
     computed: {
@@ -138,6 +154,10 @@ export default {
         color: #FCFCFC;
     }
 
+    .bold {
+        font-weight: bold;
+    }
+
 
     .container {
         display: flex;
@@ -151,10 +171,46 @@ export default {
 
 
     .workout-logs {
-        /* background-color: #161316; */
+        display: flex;
+        flex-direction: column;
+        background-color: #161316;
         padding: 10;
         border-radius: 10;
+        color: #FCFCFC;
+        width: 100%;
+    }
+
+    .workout-log {
+        font-size: 25;
+        /* text-align: left;
+
+        margin-top: 5;
+        margin-bottom: 5; */
+        color: #FCFCFC;
+        /* background-color: #161316; */
+        /* padding: 10; */
+        /* border-radius: 10; */
         /* width: 100%; */
+    }
+
+    .table-header {
+        display: flex;
+        flex-direction: row;
+        width: 75%;
+        justify-content: space-around;
+        text-align: center;
+        border-bottom-width: 2;
+        border-bottom-color: #fcfcfc1d;
+    }
+
+    .table-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        border-bottom-width: 1;
+        border-bottom-color: #fcfcfc1d;
+        padding-top: 5;
+        padding-bottom: 5;
     }
 
     .screen-header-container {
@@ -169,23 +225,6 @@ export default {
         font-size: 50;
         color: #FCFCFC;
         font-weight: bold;
-    }
-
-
-    .clientWorkoutExerciseLog {
-        text-align: left;
-        font-size: 50;
-        width: 90%;
-        margin-top: 5;
-        margin-bottom: 5;
-        /* border-color: #FCFCFC;
-        border-width: 3;
-        border-radius: 5; */
-        color: #FCFCFC;
-        background-color: #161316;
-        padding: 10;
-        border-radius: 10;
-        width: 100%;
     }
 
     .optionsButton {
