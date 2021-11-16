@@ -1,7 +1,7 @@
 <template>
-  <PaperProvider>
+  <!-- <PaperProvider> -->
     <app-navigator></app-navigator>
-  </PaperProvider>
+  <!-- </PaperProvider> -->
 
 </template>
 
@@ -16,9 +16,9 @@
   import { LogBox } from 'react-native';
   LogBox.ignoreAllLogs();
 
-  
+    
 
-  import { Provider as PaperProvider } from 'react-native-paper'
+  // import { Provider as PaperProvider } from 'react-native-paper'
 
   import { useFonts } from 'expo-font';
  
@@ -26,6 +26,7 @@
 
   import {
     createAppContainer,
+    createBottomTabNavigator,
     createStackNavigator,
   } from "vue-native-router";
 
@@ -50,8 +51,24 @@
 
   import DetailsScreen from "./screens/DetailsScreen.vue";
 
+  const BottomTabNavigator = createBottomTabNavigator(
+    {
+      Clients: ClientListScreen,
+      Exercises: ExerciseListScreen,
+    },
+    {
+      tabBarOptions: {
+        style: {
+          backgroundColor: '#080708'
+        },
+        activeTintColor: '#7D80DA'
+      }
+    }
+  )
+
   const StackNavigator = createStackNavigator(
     {
+      IOSTabs: BottomTabNavigator,
       Login: {
         screen: LoginScreen,
       },
@@ -80,8 +97,8 @@
       defaultNavigationOptions: {
         headerStyle: {
           backgroundColor: "#080708"
-        }
-      }
+        },
+      },
     },
   );
 
@@ -94,7 +111,7 @@
   export default {
     components: {
       AppNavigator,
-      PaperProvider
+      // PaperProvider
     },
   }
 </script>

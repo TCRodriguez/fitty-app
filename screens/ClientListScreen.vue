@@ -45,6 +45,8 @@
 <script>
 import { mapState } from 'vuex'
 
+
+
 import SvgUri from 'react-native-svg-uri';
 
 export default {

@@ -49,7 +49,7 @@ export default {
             }
             this.$store.dispatch('login/login', payload)
             .then(() => {
-                this.navigation.navigate('Clients')
+                this.navigation.navigate('IOSTabs')
             })
             .catch(error => {
                 console.log(error.response)
