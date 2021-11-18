@@ -6,7 +6,13 @@
 
 <script>
 export default {
-    
+    props: {
+        characters: {
+            type: String,
+            default: "+",
+            required: false
+        }
+    }
 }
 </script>
 

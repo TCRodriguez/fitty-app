@@ -28,6 +28,7 @@
     createAppContainer,
     createBottomTabNavigator,
     createMaterialTopTabNavigator,
+    createDrawerNavigator,
     createStackNavigator,
   } from "vue-native-router";
 
@@ -40,7 +41,7 @@
 
   import ExerciseListScreen from "./screens/ExerciseListScreen.vue";
   import CreateExerciseScreen from "./screens/CreateExerciseScreen.vue";
-  import CreateExerciseButton from "./components/CreateExerciseButton.vue"
+  import CreateExerciseButton from "./components/CreateResourceButton.vue"
   import EditExerciseScreen from "./screens/EditExerciseScreen.vue";
 
   import ClientWorkoutsListScreen from "./screens/ClientWorkoutsListScreen.vue";
@@ -59,7 +60,6 @@
       CreateExercise: CreateExerciseScreen,
     }
   )
-
   const BottomTabNavigator = createBottomTabNavigator(
     {
       Clients: ClientListScreen,
@@ -80,6 +80,12 @@
       },
     }
   )
+
+
+
+
+
+
 
   const StackNavigator = createStackNavigator(
     {

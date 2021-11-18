@@ -30,7 +30,7 @@
 
             
             <Pressable @press="goToCreateExerciseScreen()">
-                <create-exercise-button></create-exercise-button>
+                <create-resource-button></create-resource-button>
             </Pressable>
 
         </view>
@@ -40,11 +40,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import CreateExerciseButton from '../components/CreateExerciseButton.vue'
+import CreateResourceButton from '../components/CreateResourceButton.vue'
 
 export default {
     components: {
-        CreateExerciseButton
+        CreateResourceButton
     },
     props: {
         navigation: {
