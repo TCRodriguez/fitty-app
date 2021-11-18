@@ -1,6 +1,7 @@
 
 <template>
-    <scroll-view :content-container-style="{contentContainer: {
+<safe-area-view :style="styles">
+    <scroll-view :style="styles" :content-container-style="{contentContainer: {
         paddingVertical: 20
     }}">
         <view class="container">
@@ -40,6 +41,8 @@
             <!-- <button title="Go to home screen" @press="goToHomeScreen"></button> -->
         </view>
     </scroll-view>
+</safe-area-view>
+
 </template>
 
 <script>
@@ -59,6 +62,13 @@ export default {
         navigation: {
             type: Object
         },
+    },
+    data() {
+        return {
+            styles: {
+                backgroundColor: '#000000'
+            }
+        }
     },
     mounted() {
         this.$store.dispatch('clients/updateClientList')
