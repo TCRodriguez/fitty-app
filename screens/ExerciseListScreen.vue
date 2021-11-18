@@ -1,41 +1,51 @@
 <template>
-    <scroll-view :content-container-style="{contentContainer: {
-        paddingVertical: 20
-    }}">
-        <view class="container">
-            <!-- <text>This is the Exercise index page.</text> -->
-            <view class="screen-header-container">
-                <text class="screen-header-text">Exercises</text>
-            </view>
-
-            <!-- <text
-                class="createExerciseButton"
-                @press="goToCreateExerciseScreen()"
-            >Add Exercise</text> -->
-                    <!-- @press="goToEditExerciseScreen(exercise.id, exercise.exercise_name)" -->
-            <view class="exercise-list">
-                <view class="exerciseButton"
-                    v-for="exercise in exercises" 
-                    :key="exercise.id" 
-                    :exercise="exercise"
-                >
-                    <text class="text-color-primary" style="font-size: 25;">
-                        {{ exercise.exercise_name }}
-                    </text>
+    <view class="main-container">
+        <scroll-view :content-container-style="{contentContainer: {
+            paddingVertical: 20
+        }}">
+            <view class="container">
+                <!-- <text>This is the Exercise index page.</text> -->
+                <view class="screen-header-container">
+                    <text class="screen-header-text">Exercises</text>
+                </view>
+                        <!-- @press="goToEditExerciseScreen(exercise.id, exercise.exercise_name)" -->
+                <view class="exercise-list">
+                    <view class="exerciseButton"
+                        v-for="exercise in exercises" 
+                        :key="exercise.id" 
+                        :exercise="exercise"
+                    >
+                        <text class="text-color-primary" style="font-size: 25;">
+                            {{ exercise.exercise_name }}
+                        </text>
+                    </view>
                 </view>
 
+
+
+                <!-- <button title="Go to home screen" @press="goToHomeScreen"></button> -->
             </view>
+        </scroll-view>
+        <view style="position: absolute; left: 325; right: 0; top: 650;">
 
+            
+            <Pressable @press="goToCreateExerciseScreen()">
+                <create-exercise-button></create-exercise-button>
+            </Pressable>
 
-            <!-- <button title="Go to home screen" @press="goToHomeScreen"></button> -->
         </view>
-    </scroll-view>
+    </view>
+
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import CreateExerciseButton from '../components/CreateExerciseButton.vue'
 
 export default {
+    components: {
+        CreateExerciseButton
+    },
     props: {
         navigation: {
             type: Object
@@ -72,6 +82,13 @@ export default {
 </script>
 
 <style scoped>
+
+    .main-container {
+        display: flex;
+        width: 100%;
+    }
+
+
     .container {
         display: flex;
         align-items: center;
@@ -81,6 +98,21 @@ export default {
         padding-right: 15;
         padding-bottom: 15;
     }
+
+    .screen-header-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        padding-top: 25;
+        padding-bottom: 25;
+    }
+
+    .screen-header-text {
+        font-size: 50;
+        color: #FCFCFC;
+        font-weight: bold;
+    }
+
 
     .exercise-list {
         background-color: #161316;
@@ -102,21 +134,6 @@ export default {
         color: #FCFCFC;
     }
 
-
-
-    .screen-header-container {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        padding-top: 25;
-        padding-bottom: 25;
-    }
-
-    .screen-header-text {
-        font-size: 50;
-        color: #FCFCFC;
-        font-weight: bold;
-    }
 
     .createExerciseButton {
         text-align: center;

@@ -27,6 +27,7 @@
   import {
     createAppContainer,
     createBottomTabNavigator,
+    createMaterialTopTabNavigator,
     createStackNavigator,
   } from "vue-native-router";
 
@@ -39,6 +40,7 @@
 
   import ExerciseListScreen from "./screens/ExerciseListScreen.vue";
   import CreateExerciseScreen from "./screens/CreateExerciseScreen.vue";
+  import CreateExerciseButton from "./components/CreateExerciseButton.vue"
   import EditExerciseScreen from "./screens/EditExerciseScreen.vue";
 
   import ClientWorkoutsListScreen from "./screens/ClientWorkoutsListScreen.vue";
@@ -51,10 +53,23 @@
 
   import DetailsScreen from "./screens/DetailsScreen.vue";
 
+  const MaterialTopTabNavigator = createMaterialTopTabNavigator(
+    {
+      Exercises: ExerciseListScreen,
+      CreateExercise: CreateExerciseScreen,
+    }
+  )
+
   const BottomTabNavigator = createBottomTabNavigator(
     {
       Clients: ClientListScreen,
-      Exercises: ExerciseListScreen,
+      Exercises: {
+        screen: ExerciseListScreen,
+        navigationOptions: () => ({
+          headerRight: CreateExerciseButton
+        })
+      },
+      
     },
     {
       tabBarOptions: {
@@ -62,13 +77,17 @@
           backgroundColor: '#080708'
         },
         activeTintColor: '#7D80DA'
-      }
+      },
     }
   )
 
   const StackNavigator = createStackNavigator(
     {
-      IOSTabs: BottomTabNavigator,
+      IOSTopTabs: MaterialTopTabNavigator,
+      IOSBottomTabs: {
+        screen: BottomTabNavigator,
+
+      },
       Login: {
         screen: LoginScreen,
       },
@@ -78,7 +97,12 @@
       CreateClient: CreateClientScreen,
       EditClient: ClientEditScreen,
 
-      Exercises: ExerciseListScreen,
+      Exercises: {
+        screen: ExerciseListScreen,
+        navigationOptions: () => ({
+          headerRight: CreateExerciseButton
+        })
+      },
       CreateExercise: CreateExerciseScreen,
       EditExercise: EditExerciseScreen,
 
@@ -99,6 +123,9 @@
           backgroundColor: "#080708"
         },
       },
+      navigationOptions: {
+        headerRight: CreateExerciseButton
+      }
     },
   );
 
