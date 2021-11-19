@@ -1,40 +1,43 @@
 <template>
-    <view class="main-container">
-        <scroll-view :content-container-style="{contentContainer: {
-            paddingVertical: 20
-        }}">
-            <view class="container">
-                <!-- <text>This is the Exercise index page.</text> -->
-                <view class="screen-header-container">
-                    <text class="screen-header-text">Exercises</text>
-                </view>
-                        <!-- @press="goToEditExerciseScreen(exercise.id, exercise.exercise_name)" -->
-                <view class="exercise-list">
-                    <view class="exerciseButton"
-                        v-for="exercise in exercises" 
-                        :key="exercise.id" 
-                        :exercise="exercise"
-                    >
-                        <text class="text-color-primary" style="font-size: 25;">
-                            {{ exercise.exercise_name }}
-                        </text>
+    <safe-area-view :style="styles">
+        <view class="main-container">
+            <scroll-view style="styles" :content-container-style="{contentContainer: {
+                paddingVertical: 20
+            }}">
+                <view class="container">
+                    <!-- <text>This is the Exercise index page.</text> -->
+                    <view class="screen-header-container">
+                        <text class="screen-header-text">Exercises</text>
                     </view>
+                            <!-- @press="goToEditExerciseScreen(exercise.id, exercise.exercise_name)" -->
+                    <view class="exercise-list">
+                        <view class="exerciseButton"
+                            v-for="exercise in exercises" 
+                            :key="exercise.id" 
+                            :exercise="exercise"
+                        >
+                            <text class="text-color-primary" style="font-size: 25;">
+                                {{ exercise.exercise_name }}
+                            </text>
+                        </view>
+                    </view>
+
+
+
+                    <!-- <button title="Go to home screen" @press="goToHomeScreen"></button> -->
                 </view>
+            </scroll-view>
+            <view style="position: absolute; left: 325; right: 0; top: 650;">
 
+                
+                <Pressable @press="goToCreateExerciseScreen()">
+                    <create-resource-button></create-resource-button>
+                </Pressable>
 
-
-                <!-- <button title="Go to home screen" @press="goToHomeScreen"></button> -->
             </view>
-        </scroll-view>
-        <view style="position: absolute; left: 325; right: 0; top: 650;">
-
-            
-            <Pressable @press="goToCreateExerciseScreen()">
-                <create-resource-button></create-resource-button>
-            </Pressable>
-
         </view>
-    </view>
+    </safe-area-view>
+
 
 </template>
 
@@ -55,6 +58,13 @@ export default {
         ...mapState('trainerExercises', {
             exercises: state => state.exercises
         })
+    },
+    data() {
+        return {
+            styles: {
+                backgroundColor: '#080708'
+            }
+        }
     },
     mounted() {
         this.$store.dispatch('trainerExercises/updateExercises')

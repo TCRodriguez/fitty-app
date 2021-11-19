@@ -1,37 +1,40 @@
 <template>
-    <scroll-view :content-container-style="{contentContainer: {
-        paddingVertical: 20
-    }}">
-      <view class="container">
+  <safe-area-view :style="styles">
+      <scroll-view :style="styles" :content-container-style="{contentContainer: {
+          paddingVertical: 20
+      }}">
+        <view class="container">
 
-        <!-- <text
-          class="optionsButton"
-          @press="goToClientEditScreen()"
-        >Edit Client</text>
-        <text
-          class="optionsButton"
-          @press="goToCreateClientWorkoutScreen()"
-        >Add Workout</text> -->
-          <view class="screen-header-container">
-            <text class="screen-header-text">{{clientName}}</text>
+          <!-- <text
+            class="optionsButton"
+            @press="goToClientEditScreen()"
+          >Edit Client</text>
+          <text
+            class="optionsButton"
+            @press="goToCreateClientWorkoutScreen()"
+          >Add Workout</text> -->
+            <view class="screen-header-container">
+              <text class="screen-header-text">{{clientName}}</text>
+            </view>
+          <view class="workout-list">
+            <view
+                class="client-workout-button"
+                v-for="clientWorkout in clientWorkouts"
+                :key="clientWorkout.id"
+                :clientWorkout="clientWorkout"
+              >
+                <!-- <text class="client-workout-date">{{clientWorkout.name}}</text> -->
+                <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">YYYY-MM-DD</text>
+            </view>
           </view>
-        <view class="workout-list">
-          <view
-              class="client-workout-button"
-              v-for="clientWorkout in clientWorkouts"
-              :key="clientWorkout.id"
-              :clientWorkout="clientWorkout"
-            >
-              <!-- <text class="client-workout-date">{{clientWorkout.name}}</text> -->
-              <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">YYYY-MM-DD</text>
-          </view>
+
+          <!-- <button title="Go to Client List screen" @press="goToClientListScreen"></button>
+          <button title="Go to Home screen" @press="goToHomeScreen"></button> -->
+
         </view>
+      </scroll-view>
+  </safe-area-view>
 
-        <!-- <button title="Go to Client List screen" @press="goToClientListScreen"></button>
-        <button title="Go to Home screen" @press="goToHomeScreen"></button> -->
-
-      </view>
-    </scroll-view>
 </template>
 
 <script>
@@ -52,6 +55,14 @@ export default {
       ...mapState('clientWorkouts', {
         clientWorkouts: state => state.workouts
       })
+    },
+    data() {
+      return {
+          styles: {
+              backgroundColor: '#080708',
+              height: '100%'
+          }
+      }
     },
     mounted() {
       this.clientName = this.navigation.getParam('clientName')

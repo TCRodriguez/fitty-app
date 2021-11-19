@@ -1,85 +1,88 @@
 <template>
-    <scroll-view :content-container-style="{contentContainer: {
-        paddingVertical: 20
-    }}">
-        <view class="container">
-            <!-- <text>The workoutId is: {{workoutId}}</text>
-            <text>This is the Client Workout Screen, and these are the logs</text> -->
+    <safe-area-view :style="styles">
+        <scroll-view :content-container-style="{contentContainer: {
+            paddingVertical: 20
+        }}">
+            <view class="container">
+                <!-- <text>The workoutId is: {{workoutId}}</text>
+                <text>This is the Client Workout Screen, and these are the logs</text> -->
 
-            <!-- <text
-                class="optionsButton"
-                @press="goToClientWorkoutsListScreen()"
-            >Go back to Workout screen</text>
-            <text
-                class="optionsButton"
-                @press="goToEditClientWorkoutScreen()"
-            >Edit Workout Date</text> -->
+                <!-- <text
+                    class="optionsButton"
+                    @press="goToClientWorkoutsListScreen()"
+                >Go back to Workout screen</text>
+                <text
+                    class="optionsButton"
+                    @press="goToEditClientWorkoutScreen()"
+                >Edit Workout Date</text> -->
 
-            <text>
-                {{clientWorkoutName}}
-            </text>
+                <text>
+                    {{clientWorkoutName}}
+                </text>
 
-            <view class="screen-header-container">
-                <text class="screen-header-text">Logs</text>
-                <text class="text-color-primary">{{clientName}}</text>
-            </view>
+                <view class="screen-header-container">
+                    <text class="screen-header-text">Logs</text>
+                    <text class="text-color-primary">{{clientName}}</text>
+                </view>
 
-            <!-- <view>
-                <view
-                    style="width: 100%; margin-bottom: 25;"
-                    v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
-                    :key="clientWorkoutExerciseLog.id"
-                    :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
-                    @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
-                >
-                    <text style="color: #FCFCFC; padding-bottom: 5; padding-top: 5; font-size: 35;">{{clientWorkoutExerciseLog.exercise_name}}</text>
-                    <view class="workout-logs">
-                        <view class="table-header">
-                            <text style="font-size: 25;" class="text-color-primary bold">Set</text>
-                            <text style="font-size: 25;" class="text-color-primary bold">Reps</text>
-                            <text style="font-size: 25;" class="text-color-primary bold">Weight</text>
+                <view>
+                    <view
+                        style="width: 100%; margin-bottom: 25;"
+                        v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
+                        :key="clientWorkoutExerciseLog.id"
+                        :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
+                        @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
+                    >
+                        <text style="color: #FCFCFC; padding-bottom: 5; padding-top: 5; font-size: 35;">{{clientWorkoutExerciseLog.exercise_name}}</text>
+                        <view class="workout-logs">
+                            <view class="table-header">
+                                <text style="font-size: 25;" class="text-color-primary bold">Set</text>
+                                <text style="font-size: 25;" class="text-color-primary bold">Reps</text>
+                                <text style="font-size: 25;" class="text-color-primary bold">Weight</text>
+                            </view>
+                            <view class="table-row"
+                                v-for="set in clientWorkoutExerciseLog.sets" 
+                                :key="set.id"
+                                :set="set"
+                            >
+                                <text class="workout-log">{{setNumber}}</text>
+                                <text class="workout-log">{{clientWorkoutExerciseLog.reps}}</text>
+                                <text class="workout-log">{{clientWorkoutExerciseLog.weight}}</text>
+                            </view>
+
                         </view>
-                        <view class="table-row"
-                            v-for="set in clientWorkoutExerciseLog.sets" 
-                            :key="set.id"
-                            :set="set"
-                        >
-                            <text class="workout-log">{{setNumber}}</text>
-                            <text class="workout-log">{{clientWorkoutExerciseLog.reps}}</text>
-                            <text class="workout-log">{{clientWorkoutExerciseLog.weight}}</text>
-                        </view>
-
                     </view>
                 </view>
-            </view> -->
 
-            <DataTable
-                    class="clientWorkoutExerciseLog"
-                    v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
-                    :key="clientWorkoutExerciseLog.id"
-                    :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
+                <!-- <DataTable
+                        class="clientWorkoutExerciseLog"
+                        v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
+                        :key="clientWorkoutExerciseLog.id"
+                        :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
 
-            >
-                <DataTableHeader>
-                </DataTableHeader>
+                >
+                    <DataTableHeader>
+                    </DataTableHeader>
 
-            </DataTable>
+                </DataTable> -->
 
 
-            <touchable-opacity>
-                <text class="optionsButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
-            </touchable-opacity>
-            <button title="Go to Home screen" @press="goToHomeScreen"></button>
-        </view>
-    </scroll-view>
+                <touchable-opacity>
+                    <text class="optionsButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
+                </touchable-opacity>
+                <button title="Go to Home screen" @press="goToHomeScreen"></button>
+            </view>
+        </scroll-view>
+    </safe-area-view>
+
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { DataTable, DataTableHeader } from 'react-native-paper';
+// import { DataTable, DataTableHeader } from 'react-native-paper';
 
 export default {
-    components: {DataTable,DataTableHeader},
+    // components: {DataTable},
     props: {
         navigation: {
             type: Object
@@ -92,6 +95,9 @@ export default {
             workoutId: null,
             clientWorkoutName: null,
             setNumber: 1,
+            styles: {
+                backgroundColor: "#080708"
+            }
         }
     },
     computed: {
