@@ -31,21 +31,26 @@
                         height="200"
                         source="{require('../assets/homer.svg')}"
                     ></SvgUri> -->
-
                 </view>
-
-
             </view>
-
-
             <!-- <button title="Go to home screen" @press="goToHomeScreen"></button> -->
         </view>
     </scroll-view>
+    <view style="position: absolute; left: 325; right: 0; top: 650;">
+        <Pressable @press="goToCreateClientScreen()">
+            <create-resource-button></create-resource-button>
+        </Pressable>
+    </view>
 </safe-area-view>
 
 </template>
 
 <script>
+import CreateResourceButton from '../components/CreateResourceButton.vue'
+
+
+
+
 import { mapState } from 'vuex'
 
 
@@ -53,6 +58,9 @@ import { mapState } from 'vuex'
 import SvgUri from 'react-native-svg-uri';
 
 export default {
+    components: {
+        CreateResourceButton
+    },
     computed: {
         ...mapState('clients', {
                 clients: state => state.list
@@ -66,7 +74,7 @@ export default {
     data() {
         return {
             styles: {
-                backgroundColor: '#000000'
+                backgroundColor: '#080708'
             }
         }
     },
