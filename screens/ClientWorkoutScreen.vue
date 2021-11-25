@@ -67,22 +67,33 @@
                 </DataTable> -->
 
 
-                <touchable-opacity>
+                <!-- <touchable-opacity>
                     <text class="optionsButton" @press="goToCreateClientWorkoutExerciseLogScreen">Add Log</text>
                 </touchable-opacity>
-                <button title="Go to Home screen" @press="goToHomeScreen"></button>
+                <button title="Go to Home screen" @press="goToHomeScreen"></button> -->
+
             </view>
         </scroll-view>
+        <view style="position: absolute; left: 325; right: 0; top: 650;">
+            <Pressable @press="goToCreateClientWorkoutExerciseLogScreen()">
+                <create-resource-button></create-resource-button>
+            </Pressable>
+        </view>
     </safe-area-view>
 
 </template>
 
 <script>
 import { mapState } from 'vuex'
+
+import CreateResourceButton from '../components/CreateResourceButton.vue'
 // import { DataTable, DataTableHeader } from 'react-native-paper';
 
 export default {
     // components: {DataTable},
+    components: {
+        CreateResourceButton
+    },
     props: {
         navigation: {
             type: Object

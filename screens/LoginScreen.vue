@@ -31,8 +31,8 @@
 export default {
     data() {
         return {
-            email: '',
-            password: '',
+            email: 'tr@example.com',
+            password: 'password123',
             trainerId: null,
         }
     },
