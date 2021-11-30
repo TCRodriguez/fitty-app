@@ -107,7 +107,8 @@ export default {
             clientWorkoutName: null,
             setNumber: 1,
             styles: {
-                backgroundColor: "#080708"
+                backgroundColor: "#080708",
+                height: "100%"
             }
         }
     },

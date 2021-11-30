@@ -5,34 +5,29 @@
       }}">
         <view class="container">
 
-          <!-- <text
-            class="optionsButton"
-            @press="goToClientEditScreen()"
-          >Edit Client</text>
-          <text
-            class="optionsButton"
-            @press="goToCreateClientWorkoutScreen()"
-          >Add Workout</text> -->
             <view class="screen-header-container">
               <text class="screen-header-text">{{clientName}}</text>
             </view>
           <view class="workout-list">
             <view
-                class="client-workout-button"
-                v-for="clientWorkout in clientWorkouts"
-                :key="clientWorkout.id"
-                :clientWorkout="clientWorkout"
-              >
-                <!-- <text class="client-workout-date">{{clientWorkout.name}}</text> -->
-                <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">YYYY-MM-DD</text>
+              class="client-workout-button"
+              v-for="clientWorkout in clientWorkouts"
+              :key="clientWorkout.id"
+              :clientWorkout="clientWorkout"
+            >
+              <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">YYYY-MM-DD</text>
             </view>
           </view>
 
-          <!-- <button title="Go to Client List screen" @press="goToClientListScreen"></button>
-          <button title="Go to Home screen" @press="goToHomeScreen"></button> -->
+
 
         </view>
       </scroll-view>
+        <view style="position: absolute; left: 325; right: 0; top: 650;">
+          <Pressable @press="goToCreateClientWorkoutScreen()">
+              <create-resource-button></create-resource-button>
+          </Pressable>
+        </view>
   </safe-area-view>
 
 </template>
@@ -40,7 +35,12 @@
 <script>
 import { mapState } from 'vuex';
 
+import CreateResourceButton from '../components/CreateResourceButton.vue'
+
 export default {
+  components: {
+    CreateResourceButton
+  },
     data() {
       return {
         clientName: null,
