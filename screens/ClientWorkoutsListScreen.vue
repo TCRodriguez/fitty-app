@@ -15,7 +15,7 @@
               :key="clientWorkout.id"
               :clientWorkout="clientWorkout"
             >
-              <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">YYYY-MM-DD</text>
+              <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">{{clientWorkout.date.substring(0, 10)}}</text>
             </view>
           </view>
 
