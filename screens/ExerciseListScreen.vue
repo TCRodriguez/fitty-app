@@ -9,22 +9,23 @@
                     <view class="screen-header-container">
                         <text class="screen-header-text">Exercises</text>
                     </view>
-                            <!-- @press="goToEditExerciseScreen(exercise.id, exercise.exercise_name)" -->
+
                     <view class="exercise-list">
-                        <view class="exerciseButton"
+                        <view 
+                            class="exerciseButton"
                             v-for="exercise in exercises" 
                             :key="exercise.id" 
                             :exercise="exercise"
                         >
-                            <text class="text-color-primary" style="font-size: 25;">
+                            <text 
+                                class="text-color-primary" 
+                                style="font-size: 25;"
+                                @press="goToEditExerciseScreen(exercise.id, exercise.exercise_name)"
+                            >
                                 {{ exercise.exercise_name }}
                             </text>
                         </view>
                     </view>
-
-
-
-                    <!-- <button title="Go to home screen" @press="goToHomeScreen"></button> -->
                 </view>
             </scroll-view>
             <view style="position: absolute; left: 325; right: 0; top: 650;">

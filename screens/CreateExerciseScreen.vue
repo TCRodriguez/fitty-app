@@ -77,16 +77,4 @@ export default {
         border-radius: 10;
     }
 
-    /* .save-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: #FCFCFC;
-        border-width: 1;
-        border-color: #7D80DA;
-        background-color: #7D80DA;
-        border-radius: 10;
-        width: 75%;
-    } */
 </style>
