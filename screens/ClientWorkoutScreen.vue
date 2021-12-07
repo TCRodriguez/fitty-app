@@ -4,55 +4,43 @@
             paddingVertical: 20
         }}">
             <view class="container">
-                <!-- <text>The workoutId is: {{workoutId}}</text>
-                <text>This is the Client Workout Screen, and these are the logs</text> -->
-
-                <!-- <text
-                    class="optionsButton"
-                    @press="goToClientWorkoutsListScreen()"
-                >Go back to Workout screen</text>
-                <text
-                    class="optionsButton"
-                    @press="goToEditClientWorkoutScreen()"
-                >Edit Workout Date</text> -->
-
-                <text>
-                    {{clientWorkoutName}}
-                </text>
 
                 <view class="screen-header-container">
                     <text class="screen-header-text">Logs</text>
                     <text class="text-color-primary">{{clientName}}</text>
                 </view>
 
-                <view>
-                    <view
-                        style="width: 100%; margin-bottom: 25;"
-                        v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
-                        :key="clientWorkoutExerciseLog.id"
-                        :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
-                        @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
-                    >
-                        <text style="color: #FCFCFC; padding-bottom: 5; padding-top: 5; font-size: 35;">{{clientWorkoutExerciseLog.exercise_name}}</text>
-                        <view class="workout-logs">
-                            <view class="table-header">
-                                <text style="font-size: 25;" class="text-color-primary bold">Set</text>
-                                <text style="font-size: 25;" class="text-color-primary bold">Reps</text>
-                                <text style="font-size: 25;" class="text-color-primary bold">Weight</text>
-                            </view>
-                            <view class="table-row"
-                                v-for="set in clientWorkoutExerciseLog.sets" 
-                                :key="set.id"
-                                :set="set"
-                            >
-                                <text class="workout-log">{{setNumber}}</text>
-                                <text class="workout-log">{{clientWorkoutExerciseLog.reps}}</text>
-                                <text class="workout-log">{{clientWorkoutExerciseLog.weight}}</text>
-                            </view>
 
+                <!-- <view> -->
+                    <Pressable @press="goToEditClientWorkoutExerciseLogScreen()">
+                        <view
+                            style="width: 100%; margin-bottom: 25;"
+                            v-for="clientWorkoutExerciseLog in clientWorkoutExerciseLogs"
+                            :key="clientWorkoutExerciseLog.id"
+                            :clientWorkoutExerciseLog="clientWorkoutExerciseLog"
+                            @press="goToEditClientWorkoutExerciseLogScreen(clientWorkoutExerciseLog.id)"
+                        >
+                            <text style="color: #FCFCFC; padding-bottom: 5; padding-top: 5; font-size: 35;">{{clientWorkoutExerciseLog.exercise_name}}</text>
+                            <view class="workout-logs">
+                                <view class="table-header">
+                                    <text style="font-size: 25;" class="text-color-primary bold">Set</text>
+                                    <text style="font-size: 25;" class="text-color-primary bold">Reps</text>
+                                    <text style="font-size: 25;" class="text-color-primary bold">Weight</text>
+                                </view>
+                                <view class="table-row"
+                                    v-for="set in clientWorkoutExerciseLog.sets" 
+                                    :key="set.id"
+                                    :set="set"
+                                >
+                                    <text class="workout-log">{{setNumber}}</text>
+                                    <text class="workout-log">{{clientWorkoutExerciseLog.reps}}</text>
+                                    <text class="workout-log">{{clientWorkoutExerciseLog.weight}}</text>
+                                </view>
+                            </view>
                         </view>
-                    </view>
-                </view>
+                    </Pressable>
+
+                <!-- </view> -->
 
                 <!-- <DataTable
                         class="clientWorkoutExerciseLog"
