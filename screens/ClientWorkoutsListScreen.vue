@@ -7,6 +7,9 @@
 
             <view class="screen-header-container">
               <text class="screen-header-text">{{clientName}}</text>
+              <Pressable @press="goToClientEditScreen()">
+                <text class="screen-header-sub-text">Edit Client</text>
+              </Pressable>
             </view>
           <view class="workout-list">
             <view
@@ -44,6 +47,10 @@ export default {
     data() {
       return {
         clientName: null,
+        styles: {
+          backgroundColor: '#080708',
+          height: '100%'
+        }
       }
     },
     props: {
@@ -55,14 +62,6 @@ export default {
       ...mapState('clientWorkouts', {
         clientWorkouts: state => state.workouts
       })
-    },
-    data() {
-      return {
-          styles: {
-              backgroundColor: '#080708',
-              height: '100%'
-          }
-      }
     },
     mounted() {
       this.clientName = this.navigation.getParam('clientName')
@@ -133,6 +132,10 @@ export default {
         font-size: 50;
         color: #FCFCFC;
         font-weight: bold;
+    }
+
+    .screen-header-sub-text {
+        color: #FCFCFC;
     }
 
     .workout-list {

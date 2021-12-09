@@ -9,7 +9,7 @@
 
             <KeyboardAvoidingView style="position: absolute; left: 325; right: 0; top: 650;" behavior="padding">
                 <Pressable @press="createExercise()">
-                    <create-resource-button class="save-button">Save</create-resource-button>
+                    <create-resource-button>Save</create-resource-button>
                 </Pressable>
             </KeyboardAvoidingView>
         </view>

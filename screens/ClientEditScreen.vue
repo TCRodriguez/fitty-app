@@ -1,5 +1,9 @@
 <template>
     <view class="container">
+        <view class="screen-header-container">
+            <text class="screen-header-text">Edit Client</text>
+        </view>
+
         <text-input placeholder="First name" class="input-field" v-model="firstName"/>
         <text-input placeholder="Last name" class="input-field" v-model="lastName"/>
         <text-input placeholder="Starting weight" keyboardType="numeric" class="input-field" v-model="startingWeight"/>
@@ -61,30 +65,47 @@ export default {
 
 <style scoped>
     .container {
-        margin-left: 5;
+        display: flex;
+        align-items: center;
+        background-color: #080708;
+        padding-left: 15;
+        padding-right: 15;
+        padding-bottom: 15;
+        height: 100%;
+    }
+
+    .screen-header-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        padding-top: 25;
+        padding-bottom: 25;
+    }
+
+    .screen-header-text {
+        font-size: 50;
+        color: #FCFCFC;
+        font-weight: bold;
+    }
+
+    .input-fields {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 
     .input-field {
-        font-size: 35;
-        width: 90%;
-        margin-top: 5;
-        margin-bottom: 5;
-        border-color: black;
-        border-width: 3;
-        border-radius: 5;
-        padding-left: 5;
-        padding-top: 5;
-        padding-bottom: 5;
+        font-size: 25;
+        width: 100%;
+        padding: 10;
+        color: #FCFCFC;
+        background-color: #161316;
+        border-radius: 10;
+        margin-bottom: 15;
     }
 
     .save-button {
-        border-color: black;
-        border-width: 3;
-        border-radius: 5;
-        width: 30%;
         font-size: 25;
-        padding-left: 5;
-        padding-right: 5;
-        margin-top: 10;
+        color:#FCFCFC;
     }
 </style>
