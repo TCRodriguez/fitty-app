@@ -15,7 +15,7 @@
               :key="clientWorkout.id"
               :clientWorkout="clientWorkout"
             >
-              <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name)">{{clientWorkout.date.substring(0, 10)}}</text>
+              <text class="client-workout-date" @press="goToClientWorkoutScreen(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))">{{clientWorkout.date.substring(0, 10)}}</text>
             </view>
           </view>
 
@@ -79,12 +79,13 @@ export default {
             clientId: this.navigation.getParam('clientId')
         })
       },
-      goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName) {
+      goToClientWorkoutScreen(clientWorkoutId, clientWorkoutName, clientWorkoutDate) {
         this.navigation.navigate('ClientWorkout', {
           clientId: this.navigation.getParam('clientId'),
           clientName: this.clientName,
           workoutId: clientWorkoutId,
-          clientWorkoutName: clientWorkoutName
+          clientWorkoutName: clientWorkoutName,
+          clientWorkoutDate: clientWorkoutDate
         });
       },
       goToClientListScreen() {

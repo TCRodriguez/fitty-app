@@ -6,7 +6,7 @@
             <view class="container">
 
                 <view class="screen-header-container">
-                    <text class="screen-header-text">Logs</text>
+                    <text class="screen-header-text">{{clientWorkoutDate}}</text>
                     <text class="text-color-primary">{{clientName}}</text>
                 </view>
 
@@ -93,6 +93,7 @@ export default {
             clientName: null,
             workoutId: null,
             clientWorkoutName: null,
+            clientWorkoutDate: null,
             setNumber: 1,
             styles: {
                 backgroundColor: "#080708",
@@ -110,6 +111,7 @@ export default {
         this.clientId = this.navigation.getParam('clientId')
         this.clientName = this.navigation.getParam('clientName')
         this.clientWorkoutName = this.navigation.getParam('clientWorkoutName')
+        this.clientWorkoutDate = this.navigation.getParam('clientWorkoutDate')
 
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
     },
