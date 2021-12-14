@@ -6,7 +6,9 @@
             <view class="container">
 
                 <view class="screen-header-container">
-                    <text class="screen-header-text">{{clientWorkoutDate}}</text>
+                    <Pressable @press="goToEditClientWorkoutScreen()">
+                        <text class="screen-header-text">{{clientWorkoutDate}}</text>
+                    </Pressable>
                     <text class="text-color-primary">{{clientName}}</text>
                 </view>
 
@@ -157,7 +159,6 @@ export default {
         font-weight: bold;
     }
 
-
     .container {
         display: flex;
         align-items: center;
@@ -167,7 +168,6 @@ export default {
         padding-right: 15;
         padding-bottom: 15;
     }
-
 
     .workout-logs {
         display: flex;

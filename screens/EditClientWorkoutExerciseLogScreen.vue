@@ -11,11 +11,11 @@
         <text-input class="input-field" placeholderTextColor="#FCFCFC2a" keyboardType="numeric" placeholder="Duration..." v-model="duration"></text-input>
 
 
-        <view style="position: absolute; left: 325; right: 0; top: 650;">
+        <KeyboardAvoidingView style="position: absolute; left: 325; right: 0; top: 650;" behavior="padding">
             <Pressable @press="editClientWorkoutExerciseLog()">
-                <create-resource-button></create-resource-button>
+                <edit-resource-button class="save-button"></edit-resource-button>
             </Pressable>
-        </view>
+        </KeyboardAvoidingView>
 
 
 
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import CreateResourceButton from '../components/CreateResourceButton.vue'
+import EditResourceButton from '../components/EditResourceButton.vue'
 
 
 export default {
     components: {
-        CreateResourceButton
+        EditResourceButton
     },
     props: {
         navigation: {

@@ -10,14 +10,22 @@
         <text-input placeholder="Email" class="input-field" v-model="email"/>
         <text-input placeholder="Phone number" class="input-field" v-model="phoneNumber"/>
 
-        <touchable-opacity>
-            <text class="save-button" @press="editClient()">Save changes</text>
-        </touchable-opacity>
+        <KeyboardAvoidingView style="position: absolute; left: 325; right: 0; top: 650;" behavior="padding">
+            <Pressable @press="editClient()">
+                <edit-resource-button class="save-button"></edit-resource-button>
+            </Pressable>
+        </KeyboardAvoidingView>
     </view>
 </template>
 
 <script>
+import EditResourceButton from '../components/EditResourceButton.vue'
+
+
 export default {
+    components: {
+        EditResourceButton
+    },
     props: {
         navigation: {
             type: Object

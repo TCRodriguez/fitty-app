@@ -6,20 +6,20 @@
 
         <text-input class="input-field" placeholder="Exercise Name..." v-model="exerciseName"></text-input>
 
-            <KeyboardAvoidingView style="position: absolute; left: 325; right: 0; top: 650;" behavior="padding">
-                <Pressable @press="editExercise()">
-                    <create-resource-button class="save-button">Save</create-resource-button>
-                </Pressable>
-            </KeyboardAvoidingView>
+        <KeyboardAvoidingView style="position: absolute; left: 325; right: 0; top: 650;" behavior="padding">
+            <Pressable @press="editExercise()">
+                <edit-resource-button class="save-button"></edit-resource-button>
+            </Pressable>
+        </KeyboardAvoidingView>
     </view>
 </template>
 
 <script>
-import CreateResourceButton from '../components/CreateResourceButton.vue'
+import EditResourceButton from '../components/EditResourceButton.vue'
 
 export default {
     components: {
-        CreateResourceButton
+        EditResourceButton
     },
     props: {
         navigation: {
